@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+    mongodb:
+        image: mongo:latest
+        volumes:
+            - data:/data/db
+        ports:
+            - "27017:27017"
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=root
+            - MONGO_INITDB_ROOT_PASSWORD=pass12345
+        networks:
+            - mongonet
+        restart: always
+
+    backend:
+        build: .
+        ports:
+            - "8080:8080"
+        environment:
+            DB_HOST: mongodb
+            DB_PORT: 27017
+            DB_USERNAME: root
+            DB_PASSWORD: pass12345
+        restart: "no"
+        depends_on:
+            - mongodb
+        links:
+            - "mongodb:db"
+        networks:
+            - mongonet
+
+networks:
+    mongonet: null
+volumes:
+    data: null
