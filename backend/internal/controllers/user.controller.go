@@ -144,5 +144,5 @@ func AuthenticateUser(c *gin.Context) {
 		c.JSON(400, "")
 		return
 	}
-	c.JSON(200, tokenString)
+	c.JSON(200, gin.H{"token": tokenString})
 }
