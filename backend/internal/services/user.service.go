@@ -12,7 +12,7 @@ func NewUserService() *Service {
 	return NewService("users", "user_data")
 }
 
-func (u Service) GetUserByName(email string) (models.User, error) {
+func (u Service) GetUserByEmail(email string) (models.User, error) {
 	var result models.User
 
 	cursor := u.collection.FindOne(context.TODO(), bson.M{"email": email})
