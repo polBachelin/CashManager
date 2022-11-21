@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:area/utils/server_requests.dart';
+import 'package:cash_manager/utils/server_requests.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NotionAPI {

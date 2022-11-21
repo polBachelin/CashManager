@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:area/theme.dart' as theme;
+import 'package:cash_manager/theme.dart' as theme;
 
 class Input extends StatefulWidget {
   final String inputName;

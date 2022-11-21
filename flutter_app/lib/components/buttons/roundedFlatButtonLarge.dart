@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:area/theme.dart' as theme;
+import 'package:cash_manager/theme.dart' as theme;
 
 class RFLargeButton extends StatefulWidget {
   final Color backgroundColor;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'pages/select_server.dart';
+import 'package:cash_manager/services/manager.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
             title: 'Cash manager',
             // Start the app with the "/" named route. In this case, the app starts
             // on the RegisterScreen widget.
-            initialRoute: prefs.getBool("isLogged")! ? '/home' : '/',
+            initialRoute: '/',
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {

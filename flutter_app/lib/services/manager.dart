@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:area/services/api.dart';
+import 'package:cash_manager/services/api.dart';
 import 'package:flutter/material.dart';
 
 var creatorDefault = {

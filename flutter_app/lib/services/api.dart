@@ -1,8 +1,6 @@
-import 'package:area/models/services.dart';
-import 'package:area/services/discord_api.dart';
-import 'package:area/services/google_api.dart';
-import 'package:area/services/notion_api.dart';
-import 'package:area/utils/server_requests.dart';
+import 'package:cash_manager/models/services.dart';
+import 'package:cash_manager/services/notion_api.dart';
+import 'package:cash_manager/utils/server_requests.dart';
 
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,8 +12,6 @@ class Server {
   String url;
 
   var notion = NotionAPI(prefs: SharedPreferences.getInstance());
-  var discord = DiscordAPI(prefs: SharedPreferences.getInstance());
-  var google = GoogleAPI(prefs: SharedPreferences.getInstance());
   String? accessToken;
 
   Map<String, String> headers = {
@@ -32,8 +28,7 @@ class Server {
         headers["Authorization"] = "Bearer " + p.getString("access_token")!;
       }
       notion.headers = headers;
-      discord.headers = headers;
-      google.headers = headers;
+
       //print("TOKEN UPDATED ==> " + p.getString("access_token")!);
     });
   }
@@ -41,8 +36,6 @@ class Server {
   void changeUrl(newUrl) {
     url = newUrl;
     notion.url = newUrl;
-    discord.url = newUrl;
-    google.url = newUrl;
   }
 
   Future<bool> register(dynamic data) async {

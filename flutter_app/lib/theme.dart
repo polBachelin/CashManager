@@ -2,7 +2,7 @@ library color_theme;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:area/theme.dart' as theme;
+import 'package:cash_manager/theme.dart' as theme;
 
 const Color primaryColor = Color.fromARGB(255, 211, 109, 42);
 const Color primaryLightColor = Color.fromARGB(255, 214, 86, 0);

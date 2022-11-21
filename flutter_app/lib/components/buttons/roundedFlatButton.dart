@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:area/theme.dart' as theme;
+import 'package:cash_manager/theme.dart' as theme;
 
 class RoundedFlatButton extends StatefulWidget {
   final Color backgroundColor;
@@ -25,13 +25,14 @@ class RoundedFlatButtonState extends State<RoundedFlatButton> {
   @override
   Widget build(BuildContext context) {
     return (ButtonTheme(
-      child: FlatButton(
-        textColor: theme.white,
-        splashColor: theme.primaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          textStyle: const TextStyle(
+            color: theme.white,
+            backgroundColor: theme.primaryColor,
+            
+          )
         ),
-        color: widget.backgroundColor,
         child: widget.buttonText != null
             ? Text(widget.buttonText)
             : Icon(widget.buttonIcon),

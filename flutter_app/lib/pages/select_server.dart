@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:area/components/buttons/roundedFlatButton.dart';
-import 'package:area/components/buttons/inputText.dart';
-import 'package:area/theme.dart' as theme;
-import 'package:area/services/manager.dart';
+import 'package:cash_manager/components/buttons/roundedFlatButton.dart';
+import 'package:cash_manager/components/buttons/inputText.dart';
+import 'package:cash_manager/theme.dart' as theme;
+import 'package:cash_manager/services/manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ServerPage extends StatefulWidget {

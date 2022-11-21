@@ -71,20 +71,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.2"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.5"
-  date_field:
-    dependency: "direct main"
-    description:
-      name: date_field
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.3"
   fake_async:
     dependency: transitive
     description:
@@ -111,13 +97,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_launcher_icons:
-    dependency: "direct main"
-    description:
-      name: flutter_launcher_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.3"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -131,94 +110,24 @@ packages:
       name: flutter_native_splash
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.14"
-  flutter_secure_storage:
-    dependency: transitive
-    description:
-      name: flutter_secure_storage
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.1.2"
-  flutter_secure_storage_linux:
-    dependency: transitive
-    description:
-      name: flutter_secure_storage_linux
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.1"
-  flutter_secure_storage_macos:
-    dependency: transitive
-    description:
-      name: flutter_secure_storage_macos
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.1"
-  flutter_secure_storage_platform_interface:
-    dependency: transitive
-    description:
-      name: flutter_secure_storage_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  flutter_secure_storage_web:
-    dependency: transitive
-    description:
-      name: flutter_secure_storage_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
-  flutter_secure_storage_windows:
-    dependency: transitive
-    description:
-      name: flutter_secure_storage_windows
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.2"
-  flutter_switch:
-    dependency: "direct main"
-    description:
-      name: flutter_switch
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.2"
+    version: "2.2.15"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_web_auth:
-    dependency: transitive
-    description:
-      name: flutter_web_auth
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.3"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
-  fluttertoast:
-    dependency: "direct main"
-    description:
-      name: fluttertoast
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "8.1.1"
-  font_awesome_flutter:
-    dependency: "direct main"
-    description:
-      name: font_awesome_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "9.2.0"
   google_fonts:
     dependency: "direct main"
     description:
       name: google_fonts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.3"
+    version: "3.0.1"
   html:
     dependency: transitive
     description:
@@ -247,13 +156,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.2"
-  intl:
-    dependency: transitive
-    description:
-      name: intl
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.17.0"
   js:
     dependency: transitive
     description:
@@ -282,13 +184,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.5"
-  material_floating_search_bar:
-    dependency: "direct main"
-    description:
-      name: material_floating_search_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.7"
   meta:
     dependency: transitive
     description:
@@ -296,13 +191,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  oauth2_client:
-    dependency: "direct main"
-    description:
-      name: oauth2_client
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.4.2"
   path:
     dependency: transitive
     description:
@@ -394,20 +282,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
-  random_string:
-    dependency: transitive
-    description:
-      name: random_string
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.3.1"
-  select_form_field:
-    dependency: "direct main"
-    description:
-      name: select_form_field
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -532,62 +406,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.4"
-  url_launcher:
-    dependency: "direct main"
-    description:
-      name: url_launcher
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.1.6"
-  url_launcher_android:
-    dependency: transitive
-    description:
-      name: url_launcher_android
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.0.21"
-  url_launcher_ios:
-    dependency: transitive
-    description:
-      name: url_launcher_ios
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.0.17"
-  url_launcher_linux:
-    dependency: transitive
-    description:
-      name: url_launcher_linux
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
-  url_launcher_macos:
-    dependency: transitive
-    description:
-      name: url_launcher_macos
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
-  url_launcher_platform_interface:
-    dependency: transitive
-    description:
-      name: url_launcher_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
-  url_launcher_web:
-    dependency: transitive
-    description:
-      name: url_launcher_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.13"
-  url_launcher_windows:
-    dependency: transitive
-    description:
-      name: url_launcher_windows
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
   vector_math:
     dependency: transitive
     description:

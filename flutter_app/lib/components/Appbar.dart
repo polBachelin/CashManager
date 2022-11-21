@@ -1,5 +1,5 @@
-import 'package:area/pages/user_space/settings.dart';
-import 'package:area/theme.dart' as theme;
+import 'package:cash_manager/pages/user_space/settings.dart';
+import 'package:cash_manager/theme.dart' as theme;
 import 'package:flutter/material.dart';
 
 AppBar drawAppBar(BuildContext context) {
