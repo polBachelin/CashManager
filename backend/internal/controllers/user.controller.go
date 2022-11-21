@@ -146,3 +146,25 @@ func AuthenticateUser(c *gin.Context) {
 	}
 	c.JSON(200, gin.H{"token": tokenString})
 }
+
+func GetUserBalance(c *gin.Context) {
+	userIDString, exists := c.Get("user")
+	if exists == false {
+		c.JSON(401, "Error no user id, check TOKEN")
+	}
+	userID, err := primitive.ObjectIDFromHex(fmt.Sprintf("%v", userIDString))
+	if err != nil {
+		c.JSON(401, "Error while parsing user ID")
+	}
+	svc := service.NewUserService()
+	user, err := svc.GetUser(userID)
+	c.JSON(200, gin.H{"balance": user.Balance})
+}
+
+func GetUserCart(c *gin.Context) {
+
+}
+
+func UserPayment(c *gin.Context) {
+
+}

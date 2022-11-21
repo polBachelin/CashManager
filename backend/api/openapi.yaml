@@ -152,6 +152,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArticlesArray'
+  /auth:
+    post:
+      tags:
+        - Auth
+      summary: Get JWT token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Auth'
+      responses:
+        "200":
+          description: Return token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRes'
 components:
   securitySchemes:
     bearerAuth:
@@ -159,6 +176,19 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    Auth:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+          format: password
+    AuthRes:
+      type: object
+      properties:
+        token:
+          type: string
     User:
       type: object
       properties:
