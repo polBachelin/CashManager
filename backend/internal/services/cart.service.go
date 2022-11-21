@@ -21,18 +21,24 @@ func (c Service) CreateCart(obj models.Cart) (*mongo.InsertOneResult, error) {
 	return res, err
 }
 
-func (u Service) DeleteCart(id primitive.ObjectID) (interface{}, error) {
-	res, err := u.collection.DeleteOne(context.TODO(), bson.M{"_id": id})
+func (c Service) DeleteCart(id primitive.ObjectID) (interface{}, error) {
+	res, err := c.collection.DeleteOne(context.TODO(), bson.M{"_id": id})
 	return res.DeletedCount, err
 }
 
-func (u Service) GetCart(id primitive.ObjectID) (models.Cart, error) {
+func (c Service) GetCart(id primitive.ObjectID) (models.Cart, error) {
 	var result models.Cart
 
-	cursor := u.collection.FindOne(context.TODO(), bson.M{"_id": id})
+	cursor := c.collection.FindOne(context.TODO(), bson.M{"_id": id})
 	err := cursor.Decode(&result)
 	if err != nil {
 		return models.Cart{ID: primitive.ObjectID{0}, Total: 0}, err
 	}
 	return result, nil
+}
+
+func (c Service) ClearCart(obj models.Cart) {
+	obj.Articles = []models.Article{}
+	obj.Total = 0
+	c.collection.InsertOne(context.TODO(), obj)
 }

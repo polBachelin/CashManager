@@ -11,7 +11,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func output204(c *gin.Context) {
+func Output204(c *gin.Context) {
 	c.JSON(200, "Output 204")
 }
 
@@ -21,8 +21,13 @@ func AuthRequired() gin.HandlerFunc {
 		authHeader := c.GetHeader("Authorization")
 		if len(authHeader) == 0 {
 			c.AbortWithStatus(http.StatusUnauthorized)
+			return
 		}
 		idTokenHeader := strings.Split(authHeader, "Bearer ")
+		if len(idTokenHeader) < 2 {
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
 		token, err := service.ValidateToken(idTokenHeader[1])
 		if token.Valid {
 			claims := token.Claims.(jwt.MapClaims)
@@ -48,6 +53,7 @@ func Setup(r *gin.Engine) {
 		// auth.POST("/cart/articles/add", controllers.AddArticle)
 		// auth.POST("/cart/articles/remove", controllers.RemoveArticle)
 	}
+	r.GET("/", Output204)
 	r.GET("/user", controllers.GetUser)
 	r.POST("/user", controllers.CreateUser)
 	r.POST("/auth", controllers.AuthenticateUser)

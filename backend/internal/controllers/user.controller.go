@@ -37,6 +37,7 @@ func GetUser(c *gin.Context) {
 
 func PutUser(c *gin.Context) {
 	var user models.User
+
 	svc := service.NewUserService()
 	err := c.BindJSON(&user)
 	if err != nil {
@@ -186,5 +187,25 @@ func GetUserCart(c *gin.Context) {
 }
 
 func UserPayment(c *gin.Context) {
-
+	userID := getUserPrimitiveFromContext(c)
+	svc := service.NewUserService()
+	user, err := svc.GetUser(userID)
+	if err != nil {
+		c.JSON(401, "No user found")
+		return
+	}
+	cartService := service.NewCartService()
+	cart, err := cartService.GetCart(user.Cart)
+	if err != nil {
+		c.JSON(401, "No cart found for user")
+		return
+	}
+	if user.Balance < cart.Total {
+		c.JSON(500, "Not enough in user balance")
+		return
+	}
+	user.Balance = user.Balance - cart.Total
+	cartService.ClearCart(cart)
+	svc.CreateUser(user)
+	c.JSON(200, "Payment successful")
 }
