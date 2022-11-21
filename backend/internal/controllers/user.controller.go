@@ -6,6 +6,7 @@ import (
 	"crypto/sha512"
 	"encoding/hex"
 	"fmt"
+	"net/http"
 	"regexp"
 
 	"github.com/gin-gonic/gin"
@@ -19,20 +20,14 @@ func hashPassword(pass string) string {
 }
 
 func GetUser(c *gin.Context) {
-	var user models.User
+	userID := getUserPrimitiveFromContext(c)
 	svc := service.NewUserService()
-	err := c.BindJSON(&user)
+	user, err := svc.GetUser(userID)
 	if err != nil {
-		fmt.Println("[ERR]: GET:/user: ", err)
-		c.JSON(400, "")
+		c.AbortWithStatusJSON(http.StatusBadRequest, "No user found")
 		return
 	}
-	user, err = svc.GetUser(user.ID)
-	if err != nil {
-		c.JSON(500, "")
-		return
-	}
-	c.JSON(200, user)
+	c.JSON(http.StatusOK, user)
 }
 
 func PutUser(c *gin.Context) {
@@ -42,32 +37,26 @@ func PutUser(c *gin.Context) {
 	err := c.BindJSON(&user)
 	if err != nil {
 		fmt.Println("[ERR]: PUT:/user: ", err)
-		c.JSON(400, "")
+		c.JSON(http.StatusBadRequest, "Could not bind user")
 		return
 	}
 	user.Password = hashPassword(user.Password)
 	res, err := svc.CreateUser(user)
-	if err != nil {
-		c.JSON(500, "")
-		return
+	if err == nil {
+		c.JSON(http.StatusOK, res)
 	}
-	c.JSON(200, res)
 }
 
 func DeleteUser(c *gin.Context) {
-	var user models.User
+	userID := getUserPrimitiveFromContext(c)
 	svc := service.NewUserService()
-	err := c.BindJSON(&user)
+	user, err := svc.GetUser(userID)
 	if err != nil {
-		fmt.Println("[ERR]: DELETE:/user: ", err)
-		c.JSON(400, "")
-	}
-	res, err := svc.DeleteUser(user.ID)
-	if err != nil {
-		c.JSON(500, "")
+		c.AbortWithStatusJSON(http.StatusBadRequest, "No user found")
 		return
 	}
-	c.JSON(200, res)
+	res, err := svc.DeleteUser(user.ID)
+	c.JSON(http.StatusOK, res)
 }
 
 func isValidateNewUser(user models.User, svc *service.Service) (bool, string) {
@@ -82,7 +71,7 @@ func isValidateNewUser(user models.User, svc *service.Service) (bool, string) {
 	if !match {
 		return false, "Error email must be an email -> " + user.Email
 	}
-	var _, getByNameErr = svc.GetUserByEmail((user.Email))
+	var _, getByNameErr = svc.GetUserByEmail(user.Email)
 	if getByNameErr == nil {
 		return false, "Error email already exists -> " + user.Email
 	}
@@ -95,7 +84,7 @@ func CreateUser(c *gin.Context) {
 
 	if errorBind != nil {
 		fmt.Println("[ERR]: POST:/user: ", errorBind)
-		c.JSON(400, "")
+		c.JSON(http.StatusBadRequest, "Error binding user")
 		return
 	}
 	svc := service.NewUserService()
@@ -107,13 +96,13 @@ func CreateUser(c *gin.Context) {
 		oid, _ := cartRes.InsertedID.(primitive.ObjectID)
 		user.Cart = oid
 		res, err := svc.CreateUser(user)
-		if err != nil {
-			c.JSON(500, "")
+		if err == nil {
+			c.JSON(http.StatusOK, res)
 			return
 		}
-		c.JSON(200, res)
+		c.JSON(http.StatusInternalServerError, "Failed to create user")
 	} else {
-		c.JSON(400, "Invalid username or password: "+err)
+		c.JSON(http.StatusBadRequest, "Invalid username or password: "+err)
 	}
 }
 
@@ -124,38 +113,35 @@ func AuthenticateUser(c *gin.Context) {
 
 	if errorBind != nil {
 		fmt.Println("[ERR]: POST:/user: ", errorBind)
-		c.JSON(400, "")
+		c.JSON(http.StatusBadRequest, "")
 		return
 	}
 	svc := service.NewUserService()
 	dbUser, err := svc.GetUserByEmail(user.Email)
 	if err != nil {
 		fmt.Println("[ERR]: GET:/user/login: ", err)
-		c.JSON(500, "Could not get user")
+		c.JSON(http.StatusInternalServerError, "Could not get user")
 		return
 
 	}
 	if dbUser.Password != hashPassword(user.Password) {
 		fmt.Println("[ERR]: POST:/auth: ", err)
-		c.JSON(401, "")
+		c.JSON(http.StatusBadRequest, "Wrong password")
 		return
 	}
 	tokenString := service.GenerateToken(dbUser.ID)
 	if tokenString == "" {
-		c.JSON(400, "")
+		c.JSON(http.StatusBadRequest, "Could not generate token")
 		return
 	}
-	c.JSON(200, gin.H{"token": tokenString})
+	c.JSON(http.StatusOK, gin.H{"token": tokenString})
 }
 
 func getUserPrimitiveFromContext(c *gin.Context) primitive.ObjectID {
-	userIDString, exists := c.Get("user")
-	if exists == false {
-		c.AbortWithStatusJSON(401, "Error no user id, check TOKEN")
-	}
+	userIDString, _ := c.Get("user")
 	userID, err := primitive.ObjectIDFromHex(fmt.Sprintf("%v", userIDString))
 	if err != nil {
-		c.AbortWithStatusJSON(401, "Error while parsing user ID")
+		c.AbortWithStatusJSON(http.StatusBadRequest, "Error while parsing user ID")
 	}
 	return userID
 }
@@ -165,9 +151,9 @@ func GetUserBalance(c *gin.Context) {
 	svc := service.NewUserService()
 	user, err := svc.GetUser(userID)
 	if err != nil {
-		c.AbortWithStatusJSON(401, "No user found")
+		c.AbortWithStatusJSON(http.StatusBadRequest, "No user found")
 	}
-	c.JSON(200, gin.H{"balance": user.Balance})
+	c.JSON(http.StatusOK, gin.H{"balance": user.Balance})
 }
 
 func GetUserCart(c *gin.Context) {
@@ -175,15 +161,11 @@ func GetUserCart(c *gin.Context) {
 	svc := service.NewUserService()
 	user, err := svc.GetUser(userID)
 	if err != nil {
-		c.AbortWithStatusJSON(401, "No user found")
+		c.AbortWithStatusJSON(http.StatusBadRequest, "No user found")
 	}
 	cartService := service.NewCartService()
-	cart, err := cartService.GetCart(user.Cart)
-	if err != nil {
-		c.AbortWithStatusJSON(401, "No cart found for user")
-	}
-	c.JSON(200, gin.H{"cart": cart})
-
+	cart, _ := cartService.GetCart(user.Cart)
+	c.JSON(http.StatusOK, gin.H{"cart": cart})
 }
 
 func UserPayment(c *gin.Context) {
@@ -191,21 +173,21 @@ func UserPayment(c *gin.Context) {
 	svc := service.NewUserService()
 	user, err := svc.GetUser(userID)
 	if err != nil {
-		c.JSON(401, "No user found")
+		c.JSON(http.StatusBadRequest, "No user found")
 		return
 	}
 	cartService := service.NewCartService()
 	cart, err := cartService.GetCart(user.Cart)
 	if err != nil {
-		c.JSON(401, "No cart found for user")
+		c.JSON(http.StatusBadRequest, "No cart found for user")
 		return
 	}
 	if user.Balance < cart.Total {
-		c.JSON(500, "Not enough in user balance")
+		c.JSON(http.StatusInternalServerError, "Not enough in user balance")
 		return
 	}
 	user.Balance = user.Balance - cart.Total
 	cartService.ClearCart(cart)
 	svc.CreateUser(user)
-	c.JSON(200, "Payment successful")
+	c.JSON(http.StatusOK, "Payment successful")
 }

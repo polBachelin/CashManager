@@ -2,48 +2,19 @@ package routes
 
 import (
 	"cash/backend/internal/controllers"
-	service "cash/backend/internal/services"
-	"fmt"
-	"net/http"
-	"strings"
+	"cash/backend/internal/middleware"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
 )
 
 func Output204(c *gin.Context) {
 	c.JSON(200, "Output 204")
 }
 
-func AuthRequired() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		const BEARER_SCHEMA = "Bearer"
-		authHeader := c.GetHeader("Authorization")
-		if len(authHeader) == 0 {
-			c.AbortWithStatus(http.StatusUnauthorized)
-			return
-		}
-		idTokenHeader := strings.Split(authHeader, "Bearer ")
-		if len(idTokenHeader) < 2 {
-			c.AbortWithStatus(http.StatusUnauthorized)
-			return
-		}
-		token, err := service.ValidateToken(idTokenHeader[1])
-		if token.Valid {
-			claims := token.Claims.(jwt.MapClaims)
-			c.Set("user", claims["id"])
-			c.Next()
-		} else {
-			fmt.Println("Token is not valid: ", err)
-			c.AbortWithStatus(http.StatusUnauthorized)
-		}
-	}
-}
-
 func Setup(r *gin.Engine) {
 
 	auth := r.Group("/")
-	auth.Use(AuthRequired())
+	auth.Use(middleware.AuthRequired())
 	{
 		auth.DELETE("/user", controllers.DeleteUser)
 		auth.PUT("/user", controllers.PutUser)
