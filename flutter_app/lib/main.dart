@@ -1,3 +1,4 @@
+import 'package:cash_manager/pages/QR_code.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'pages/select_server.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
-          '/': (context) => const ServerPage(),
+          '/': (context) => const QRcodePage(),
           // '/login': (context) => const LoginScreen(),
           // '/register': (context) => const RegisterScreen(),
           // '/buy': (context) => const BuyScreen(),

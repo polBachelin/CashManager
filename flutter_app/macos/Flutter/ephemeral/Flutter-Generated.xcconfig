@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/home/mathis/FLUTTER/flutter
-FLUTTER_APPLICATION_PATH=/home/mathis/Documents/COURS EPITECH/MSC1/Cash Management/T-DEV-700-REN_3/flutter_app
+FLUTTER_ROOT=/home/enoxes/flutter
+FLUTTER_APPLICATION_PATH=/mnt/d/4e_année/T-DEV-700-REN_3/flutter_app
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0
