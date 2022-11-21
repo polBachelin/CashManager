@@ -147,21 +147,41 @@ func AuthenticateUser(c *gin.Context) {
 	c.JSON(200, gin.H{"token": tokenString})
 }
 
-func GetUserBalance(c *gin.Context) {
+func getUserPrimitiveFromContext(c *gin.Context) primitive.ObjectID {
 	userIDString, exists := c.Get("user")
 	if exists == false {
-		c.JSON(401, "Error no user id, check TOKEN")
+		c.AbortWithStatusJSON(401, "Error no user id, check TOKEN")
 	}
 	userID, err := primitive.ObjectIDFromHex(fmt.Sprintf("%v", userIDString))
 	if err != nil {
-		c.JSON(401, "Error while parsing user ID")
+		c.AbortWithStatusJSON(401, "Error while parsing user ID")
 	}
+	return userID
+}
+
+func GetUserBalance(c *gin.Context) {
+	userID := getUserPrimitiveFromContext(c)
 	svc := service.NewUserService()
 	user, err := svc.GetUser(userID)
+	if err != nil {
+		c.AbortWithStatusJSON(401, "No user found")
+	}
 	c.JSON(200, gin.H{"balance": user.Balance})
 }
 
 func GetUserCart(c *gin.Context) {
+	userID := getUserPrimitiveFromContext(c)
+	svc := service.NewUserService()
+	user, err := svc.GetUser(userID)
+	if err != nil {
+		c.AbortWithStatusJSON(401, "No user found")
+	}
+	cartService := service.NewCartService()
+	cart, err := cartService.GetCart(user.Cart)
+	if err != nil {
+		c.AbortWithStatusJSON(401, "No cart found for user")
+	}
+	c.JSON(200, gin.H{"cart": cart})
 
 }
 
