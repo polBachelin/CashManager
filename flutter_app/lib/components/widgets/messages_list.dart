@@ -1,4 +1,3 @@
-import 'package:test_project/data/messages.dart';
 import 'package:flutter/material.dart';
 
 class MessagesList extends StatefulWidget {
@@ -20,10 +19,8 @@ class _MessagesListState extends State<MessagesList> {
   Widget build(BuildContext context) {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: staticMessages.length,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
-          final message = staticMessages[index];
           return TweenAnimationBuilder<double>(
             duration: Duration(
               milliseconds: (200 + (index * 100)).toInt() < 1500
@@ -43,10 +40,10 @@ class _MessagesListState extends State<MessagesList> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: Image.asset(message.image)),
+                            const SizedBox(
+                              width: 40,
+                              height: 40,
+                            ),
                             const SizedBox(width: 10),
                             Expanded(
                               child: Column(
@@ -57,40 +54,8 @@ class _MessagesListState extends State<MessagesList> {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        message.contact,
-                                        style: const TextStyle(
-                                            fontSize: 17,
-                                            color: Colors.black54,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      Text(
-                                        message.date,
-                                        style: const TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w400),
-                                      )
-                                    ],
                                   ),
                                   const SizedBox(height: 3),
-                                  Text(
-                                    message.messageTitle,
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    message.message,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.black.withOpacity(0.8),
-                                        fontWeight: FontWeight.w400),
-                                  )
                                 ],
                               ),
                             )

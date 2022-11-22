@@ -1,10 +1,5 @@
-// ignore_for_file: constant_identifier_names
-
-library color_theme; // ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cash_manager/theme.dart' as theme;
 
 const Color blueColor = Color(0xff21579C);
 const Color ColorBackground = Color.fromARGB(255, 244, 251, 249);

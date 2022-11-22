@@ -1,4 +1,4 @@
-import 'package:test_project/widgets/messages_list.dart';
+import 'package:cash_manager/components/widgets/messages_list.dart';
 import 'package:flutter/material.dart';
 
 class MessagesScreen extends StatefulWidget {
