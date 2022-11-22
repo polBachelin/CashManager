@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_manager/components/buttons/roundedFlatButton.dart';
 import 'package:cash_manager/components/buttons/inputText.dart';
@@ -18,8 +19,7 @@ class ServerPageState extends State<ServerPage> {
   void _getNewServer(String server) {
     setState(() {
       _prefs.then((SharedPreferences prefs) {
-        print("Base IP : " + prefs.getString('server_url')!);
-        prefs.setString('server_url', "http://" + server + ":8080");
+        prefs.setString('server_url', "http://$server:8080");
         Manager.of(context).api.changeUrl(prefs.getString('server_url')!);
         print("Update IP : " + prefs.getString('server_url')!);
       });
