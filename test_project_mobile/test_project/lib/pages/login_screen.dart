@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   size: 60, color: Color(0xff21579C)),
                               const SizedBox(height: 25),
                               const Text(
-                                "Bienvenue pute,",
+                                "Bienvenue,",
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 35),
                               ),
