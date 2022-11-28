@@ -28,5 +28,5 @@ func Setup(r *gin.Engine) {
 	r.GET("/user", controllers.GetUser)
 	r.POST("/user", controllers.CreateUser)
 	r.POST("/auth", controllers.AuthenticateUser)
-	// r.GET("/articles", controllers.GetAllArticles)
+	r.GET("/articles", controllers.GetAllArticles)
 }
