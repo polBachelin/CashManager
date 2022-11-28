@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cash_manager/models/article.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,6 +24,10 @@ class Server {
     });
   }
 
+  void updateUrl(newUrl) {
+    url = newUrl;
+  }
+
   Future<bool> logout() async {
     return true;
   }
@@ -35,6 +41,29 @@ class Server {
   }
 
   Future<List<Article>> getArticles() async {
-    throw Exception();
+
+    String articlesString = '''[
+    {
+      "id": 1,
+      "name": "Ryan Jordan 1",
+      "price": 32
+    },
+    {
+      "id": 2,
+      "name": "Conversation",
+      "price": 3,
+    },
+    {
+      "id": 3,
+      "name": "Will Smith",
+      "price": 30
+    },
+]
+    ''';
+
+    final parsed = json.decode(articlesString).cast<Map<String, dynamic>>();
+    print("TOTO");
+    print(articlesListFromJson(articlesString));
+    return parsed.map<Article>((json) => Article.fromJson(json)).toList();
   }
 }

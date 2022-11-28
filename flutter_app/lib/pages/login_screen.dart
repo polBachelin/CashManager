@@ -1,7 +1,7 @@
-import 'package:test_project/widgets/email_field.dart';
-import 'package:test_project/widgets/get_started_button.dart';
-import 'package:test_project/widgets/messages_screen.dart';
-import 'package:test_project/widgets/password_field.dart';
+import 'package:cash_manager/components/widgets/email_field.dart';
+import 'package:cash_manager/components/widgets/get_started_button.dart';
+import 'package:cash_manager/components/widgets/messages_screen.dart';
+import 'package:cash_manager/components/widgets/password_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -38,11 +38,10 @@ class ArticleCardState extends State<ArticleCard> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const ListTile(
-              leading:
-                  Icon(Icons.album), //TODO: remplacer par une image d'article
+            ListTile(
+              leading: const Icon(Icons.album), //TODO: remplacer par une image d'article
               title: Text(widget.article.name),
-              subtitle: Text(article.price),
+              subtitle: Text("${widget.article.price}€"),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

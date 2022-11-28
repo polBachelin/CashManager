@@ -1,3 +1,9 @@
+  
+import 'dart:convert';
+
+List<Article> articlesListFromJson(String str) =>
+  List<Article>.from(json.decode(str).map((x) => Article.fromJson(x)));
+
 class Article {
   final String name;
   final int nb;
@@ -8,6 +14,8 @@ class Article {
     required this.nb,
     required this.price,
   });
+
+
 
   factory Article.fromJson(Map<String, dynamic> json) => Article(
         name: json['name'],

@@ -27,10 +27,11 @@ class BuyScreenState extends State<BuyScreen> {
             future: Manager.of(context).api.getArticles(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                print(snapshot.data);
                 return ListView.builder(
                     itemCount: snapshot.data![0].length,
                     itemBuilder: (context, i) {
-                      return ArticleCard(article: snapshot.data![1], nb: i);
+                      return ArticleCard(article: snapshot.data![1]);
                     });
               } else {
                 return const Center(

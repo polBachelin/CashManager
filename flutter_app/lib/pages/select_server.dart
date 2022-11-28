@@ -20,8 +20,7 @@ class ServerPageState extends State<ServerPage> {
     setState(() {
       _prefs.then((SharedPreferences prefs) {
         prefs.setString('server_url', "http://$server:8080");
-        Manager.of(context).api.changeUrl(prefs.getString('server_url')!);
-        print("Update IP : " + prefs.getString('server_url')!);
+        Manager.of(context).api.updateUrl(prefs.getString('server_url')!);
       });
     });
   }
@@ -37,8 +36,7 @@ class ServerPageState extends State<ServerPage> {
 
   void _connectServer(BuildContext context) async {
     final SharedPreferences prefs = await _prefs;
-    Manager.of(context).api.changeUrl(prefs.getString('server_url'));
-    print("Connect to server IP : " + Manager.of(context).api.url);
+    Manager.of(context).api.updateUrl(prefs.getString('server_url'));
     Navigator.pushReplacementNamed(context, '/authentification');
   }
 
