@@ -80,6 +80,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Column(
                           children: [
+                            UsernameField(
+                                fadeUsername: _elementsOpacity == 0,
+                                usernameController: usernameController),
+                            const SizedBox(height: 60),
                             EmailField(
                                 fadeEmail: _elementsOpacity == 0,
                                 emailController: emailController),
@@ -92,10 +96,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 fadePassword: _elementsOpacity == 0,
                                 confirmpasswordController:
                                     confirmpasswordController),
-                            const SizedBox(height: 60),
-                            UsernameField(
-                                fadeUsername: _elementsOpacity == 0,
-                                usernameController: usernameController),
                             const SizedBox(height: 60),
                             GetRegisterButton(
                               elementsOpacity: _elementsOpacity,

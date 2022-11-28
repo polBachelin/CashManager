@@ -2,6 +2,7 @@ import 'package:cash_manager/components/widgets/email_field.dart';
 import 'package:cash_manager/components/widgets/get_started_button.dart';
 import 'package:cash_manager/components/widgets/messages_screen.dart';
 import 'package:cash_manager/components/widgets/password_field.dart';
+import 'package:cash_manager/theme.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      backgroundColor: ColorBackground,
       body: SafeArea(
         bottom: false,
         child: loadingBallAppear
@@ -49,20 +51,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           opacity: value,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Icon(Icons.flutter_dash,
+                            children: const [
+                              Icon(Icons.flutter_dash,
                                   size: 60, color: Color(0xff21579C)),
-                              const SizedBox(height: 25),
-                              const Text(
+                              SizedBox(height: 25),
+                              Text(
                                 "Bienvenue,",
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 35),
+                                    color: ColorTitleText, fontSize: 35),
                               ),
                               Text(
                                 "Connectez-vous pour continuer",
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.7),
-                                    fontSize: 27),
+                                style:
+                                    TextStyle(color: ColorText, fontSize: 27),
                               ),
                             ],
                           ),
