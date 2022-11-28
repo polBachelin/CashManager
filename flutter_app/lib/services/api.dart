@@ -1,17 +1,16 @@
+import 'dart:io';
 import 'package:cash_manager/models/services.dart';
-import 'package:cash_manager/services/notion_api.dart';
 import 'package:cash_manager/utils/server_requests.dart';
-
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tuple/tuple.dart';
 
 class Server {
   Server({required this.url});
+
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
   String url;
-
-  var notion = NotionAPI(prefs: SharedPreferences.getInstance());
   String? accessToken;
 
   Map<String, String> headers = {
@@ -27,15 +26,30 @@ class Server {
         accessToken = p.getString("access_token");
         headers["Authorization"] = "Bearer " + p.getString("access_token")!;
       }
-      notion.headers = headers;
-
       //print("TOKEN UPDATED ==> " + p.getString("access_token")!);
     });
   }
 
-  void changeUrl(newUrl) {
+  void updateUrl(newUrl) {
     url = newUrl;
-    notion.url = newUrl;
+  }
+
+  Future<Tuple3<String, String, bool>> interceptTokenRegister(
+      Server api,
+      String oauthName,
+      String code,
+      SharedPreferences prefs) async {
+    var response =
+        await api.oauthGetToken(code, oauthName, false);
+
+    print("TUPLE returned ==> " + response.toString());
+    prefs.setString("username", response.item1);
+    prefs.setString("access_token", response.item2);
+    prefs.setBool("isLogged", response.item3);
+
+    Manager.of(context).api.updateToken();
+
+    return response;
   }
 
   Future<bool> register(dynamic data) async {

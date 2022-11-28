@@ -103,6 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 setState(() {
                                   _elementsOpacity = 0;
                                 });
+                                registerAuth(context, "googleCalendar");
                               },
                               onAnimatinoEnd: () async {
                                 await Future.delayed(
