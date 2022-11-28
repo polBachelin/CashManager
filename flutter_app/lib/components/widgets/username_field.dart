@@ -1,30 +1,32 @@
 import 'package:cash_manager/theme.dart';
 import 'package:flutter/material.dart';
 
-class EmailField extends StatefulWidget {
-  final bool fadeEmail;
-  final TextEditingController emailController;
-  const EmailField(
-      {super.key, required this.emailController, required this.fadeEmail});
+class UsernameField extends StatefulWidget {
+  final bool fadeUsername;
+  final TextEditingController usernameController;
+  const UsernameField(
+      {super.key,
+      required this.usernameController,
+      required this.fadeUsername});
 
   @override
-  State<EmailField> createState() => _EmailFieldState();
+  State<UsernameField> createState() => _UsernameFieldState();
 }
 
-class _EmailFieldState extends State<EmailField>
+class _UsernameFieldState extends State<UsernameField>
     with SingleTickerProviderStateMixin {
   double bottomAnimationValue = 0;
   double opacityAnimationValue = 0;
   EdgeInsets paddingAnimationValue = const EdgeInsets.only(top: 22);
 
-  late TextEditingController emailController;
+  late TextEditingController usernameController;
   late AnimationController _animationController;
   late Animation<Color?> _animation;
 
   FocusNode node = FocusNode();
   @override
   void initState() {
-    emailController = widget.emailController;
+    usernameController = widget.usernameController;
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
     final tween = ColorTween(begin: Colors.grey.withOpacity(0), end: blueColor);
@@ -54,13 +56,13 @@ class _EmailFieldState extends State<EmailField>
       children: [
         TweenAnimationBuilder<double>(
           duration: const Duration(milliseconds: 300),
-          tween: Tween(begin: 0, end: widget.fadeEmail ? 0 : 1),
+          tween: Tween(begin: 0, end: widget.fadeUsername ? 0 : 1),
           builder: ((_, value, __) => Opacity(
                 opacity: value,
                 child: TextFormField(
-                  controller: emailController,
+                  controller: usernameController,
                   focusNode: node,
-                  decoration: const InputDecoration(hintText: "Email"),
+                  decoration: const InputDecoration(hintText: "Username"),
                   keyboardType: TextInputType.emailAddress,
                   onChanged: (value) async {
                     if (value.isNotEmpty) {
@@ -94,7 +96,7 @@ class _EmailFieldState extends State<EmailField>
             alignment: Alignment.bottomCenter,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 500),
-              width: widget.fadeEmail ? 0 : 300,
+              width: widget.fadeUsername ? 0 : 300,
               child: TweenAnimationBuilder<double>(
                 tween: Tween(begin: 0, end: bottomAnimationValue),
                 curve: Curves.easeIn,
@@ -114,7 +116,7 @@ class _EmailFieldState extends State<EmailField>
             duration: const Duration(milliseconds: 500),
             padding: paddingAnimationValue,
             child: TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0, end: widget.fadeEmail ? 0 : 1),
+              tween: Tween(begin: 0, end: widget.fadeUsername ? 0 : 1),
               duration: const Duration(milliseconds: 700),
               builder: ((context, value, child) => Opacity(
                     opacity: value,
@@ -137,9 +139,10 @@ class _EmailFieldState extends State<EmailField>
     );
   }
 
-  bool isValidEmail(String email) {
+  //A modifier pour la secu de User (pour l'instant c'est le meme que email)
+  bool isValidEmail(String username) {
     return RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(email);
+        .hasMatch(username);
   }
 }

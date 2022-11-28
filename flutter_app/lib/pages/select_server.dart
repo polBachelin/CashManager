@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cash_manager/components/buttons/roundedFlatButton.dart';
-import 'package:cash_manager/components/buttons/inputText.dart';
-import 'package:cash_manager/theme.dart' as theme;
+import 'package:cash_manager/theme.dart';
 import 'package:cash_manager/services/manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,10 +16,10 @@ class ServerPageState extends State<ServerPage> {
   void _getNewServer(String server) {
     setState(() {
       _prefs.then((SharedPreferences prefs) {
-        print("Base IP : " + prefs.getString('server_url')!);
-        prefs.setString('server_url', "http://" + server + ":8080");
+        print("Base IP : ${prefs.getString('server_url')!}");
+        prefs.setString('server_url', "http://$server:8080");
         Manager.of(context).api.changeUrl(prefs.getString('server_url')!);
-        print("Update IP : " + prefs.getString('server_url')!);
+        print("Update IP : ${prefs.getString('server_url')!}");
       });
     });
   }
@@ -38,14 +36,14 @@ class ServerPageState extends State<ServerPage> {
   void _connectServer(BuildContext context) async {
     final SharedPreferences prefs = await _prefs;
     Manager.of(context).api.changeUrl(prefs.getString('server_url'));
-    print("Connect to server IP : " + Manager.of(context).api.url);
+    print("Connect to server IP : ${Manager.of(context).api.url}");
     Navigator.pushReplacementNamed(context, '/authentification');
   }
 
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
-        backgroundColor: theme.background,
+        backgroundColor: ColorBackground,
         body: Center(
             child: Container(
           margin: const EdgeInsets.only(
@@ -53,25 +51,10 @@ class ServerPageState extends State<ServerPage> {
             right: 40.0,
           ),
           child: ListView(shrinkWrap: true, children: <Widget>[
-            Text("Select an AREA server", style: theme.titleStyle),
+            const Text("Select an AREA server"),
             const SizedBox(height: 30),
-            Input(
-              inputName: 'newserver',
-              inputIcon: Icons.dns,
-              inputHintText: '0.0.0.0',
-              inputType: TextInputType.text,
-              inputHidden: false,
-              getInputValue: _getNewServer,
-              errorText: "",
-            ),
             Container(
               margin: const EdgeInsets.only(top: 15.0),
-              child: RoundedFlatButton(
-                buttonText: 'Connect to server',
-                backgroundColor: theme.primaryColor,
-                passedFunction: _connectServer,
-                buttonIcon: Icons.connect_without_contact_outlined,
-              ),
             ),
           ]),
         ))));

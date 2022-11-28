@@ -1,20 +1,25 @@
+import 'package:cash_manager/components/widgets/confirmpassword_field.dart';
 import 'package:cash_manager/components/widgets/email_field.dart';
+import 'package:cash_manager/components/widgets/get_register_button.dart';
 import 'package:cash_manager/components/widgets/get_started_button.dart';
 import 'package:cash_manager/components/widgets/messages_screen.dart';
 import 'package:cash_manager/components/widgets/password_field.dart';
-import 'package:cash_manager/theme.dart';
+import 'package:cash_manager/components/widgets/username_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  late TextEditingController confirmpasswordController;
+  late TextEditingController usernameController;
+
   double _elementsOpacity = 1;
   bool loadingBallAppear = false;
   double loadingBallSize = 1;
@@ -22,7 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     emailController = TextEditingController();
     passwordController = TextEditingController();
-
+    confirmpasswordController = TextEditingController();
+    usernameController = TextEditingController();
     super.initState();
   }
 
@@ -30,7 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: ColorBackground,
       body: SafeArea(
         bottom: false,
         child: loadingBallAppear
@@ -51,19 +56,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           opacity: value,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Icon(Icons.flutter_dash,
+                            children: [
+                              const Icon(Icons.flutter_dash,
                                   size: 60, color: Color(0xff21579C)),
-                              SizedBox(height: 25),
-                              Text(
-                                "Bienvenue,",
+                              const SizedBox(height: 25),
+                              const Text(
+                                "Register,",
                                 style: TextStyle(
-                                    color: ColorTitleText, fontSize: 35),
+                                    color: Colors.black, fontSize: 35),
                               ),
                               Text(
-                                "Connectez-vous pour continuer",
-                                style:
-                                    TextStyle(color: ColorText, fontSize: 27),
+                                "Remplir le formulaire",
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.7),
+                                    fontSize: 27),
                               ),
                             ],
                           ),
@@ -74,6 +80,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Column(
                           children: [
+                            UsernameField(
+                                fadeUsername: _elementsOpacity == 0,
+                                usernameController: usernameController),
+                            const SizedBox(height: 60),
                             EmailField(
                                 fadeEmail: _elementsOpacity == 0,
                                 emailController: emailController),
@@ -82,7 +92,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fadePassword: _elementsOpacity == 0,
                                 passwordController: passwordController),
                             const SizedBox(height: 60),
-                            GetStartedButton(
+                            ConfirmpasswordField(
+                                fadePassword: _elementsOpacity == 0,
+                                confirmpasswordController:
+                                    confirmpasswordController),
+                            const SizedBox(height: 60),
+                            GetRegisterButton(
                               elementsOpacity: _elementsOpacity,
                               onTap: () {
                                 setState(() {
