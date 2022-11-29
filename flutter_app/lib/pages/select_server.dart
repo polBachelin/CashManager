@@ -43,6 +43,10 @@ class ServerPageState extends State<ServerPage> {
     _elementsOpacity = 0;
   }
 
+  bool isValidIP(String ip) {
+    return RegExp(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$').hasMatch(ip);
+  }
+
   void _getIp(String ip) {
     setState(() {
       _ip = ip;
@@ -74,10 +78,12 @@ class ServerPageState extends State<ServerPage> {
           ),
           child: ListView(shrinkWrap: true, children: <Widget>[
             const Text("Select a server"),
-            IPField(
-                fadeIP: _elementsOpacity == 1,
-                ipController: ipController,
-                action: _getIp),
+            CustomField(
+                fade: _elementsOpacity == 1,
+                controller: ipController,
+                actionOnChanged: _getIp,
+                validatorFunc: isValidIP,
+                ),
             const SizedBox(height: 30),
             Container(
               margin: const EdgeInsets.only(top: 15.0),

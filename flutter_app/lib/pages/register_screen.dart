@@ -1,6 +1,7 @@
 import 'package:cash_manager/components/widgets/confirmpassword_field.dart';
 import 'package:cash_manager/components/widgets/email_field.dart';
 import 'package:cash_manager/components/widgets/classic_button.dart';
+import 'package:cash_manager/components/widgets/fields/ip_field.dart';
 import 'package:cash_manager/components/widgets/messages_screen.dart';
 import 'package:cash_manager/components/widgets/password_field.dart';
 import 'package:cash_manager/components/widgets/username_field.dart';
@@ -30,6 +31,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     confirmpasswordController = TextEditingController();
     usernameController = TextEditingController();
     super.initState();
+  }
+
+  bool isValidEmail(String email) {
+    return RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(email);
   }
 
   @override
@@ -80,9 +87,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Column(
                           children: [
-                            UsernameField(
-                                fadeUsername: _elementsOpacity == 0,
-                                usernameController: usernameController),
+                            CustomField(
+                                fade: _elementsOpacity == 0,
+                                controller: usernameController),
                             const SizedBox(height: 60),
                             EmailField(
                                 fadeEmail: _elementsOpacity == 0,

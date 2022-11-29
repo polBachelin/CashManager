@@ -1,33 +1,36 @@
 import 'package:cash_manager/theme.dart';
 import 'package:flutter/material.dart';
 
-class IPField extends StatefulWidget {
-  final bool fadeIP;
-  final TextEditingController ipController;
-  final Function action;
-  const IPField(
+class CustomField extends StatefulWidget {
+  final bool fade;
+  final Function actionOnChanged;
+  final Function validatorFunc;
+  final TextInputType keyboardType;
+  const CustomField(
       {super.key,
-      required this.ipController,
-      required this.fadeIP,
-      required this.action});
+      required this.fade,
+      required this.actionOnChanged,
+      required this.validatorFunc,
+      this.keyboardType = TextInputType.text});
 
   @override
-  State<IPField> createState() => _IPFieldState();
+  State<CustomField> createState() => _CustomFieldState();
 }
 
-class _IPFieldState extends State<IPField> with SingleTickerProviderStateMixin {
+class _CustomFieldState extends State<CustomField>
+    with SingleTickerProviderStateMixin {
   double bottomAnimationValue = 0;
   double opacityAnimationValue = 0;
   EdgeInsets paddingAnimationValue = const EdgeInsets.only(top: 22);
 
-  late TextEditingController ipController;
+  late TextEditingController controller;
   late AnimationController _animationController;
   late Animation<Color?> _animation;
 
   FocusNode node = FocusNode();
   @override
   void initState() {
-    ipController = widget.ipController;
+    controller = TextEditingController();
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
     final tween = ColorTween(begin: Colors.grey.withOpacity(0), end: blueColor);
@@ -57,18 +60,18 @@ class _IPFieldState extends State<IPField> with SingleTickerProviderStateMixin {
       children: [
         TweenAnimationBuilder<double>(
           duration: const Duration(milliseconds: 300),
-          tween: Tween(begin: 0, end: widget.fadeIP ? 0 : 1),
+          tween: Tween(begin: 0, end: widget.fade ? 0 : 1),
           builder: ((_, value, __) => Opacity(
                 opacity: value,
                 child: TextFormField(
-                  controller: ipController,
+                  controller: controller,
                   focusNode: node,
                   decoration: const InputDecoration(hintText: "Ip Adress"),
                   keyboardType: TextInputType.text,
                   onChanged: (value) async {
                     if (value.isNotEmpty) {
-                      widget.action(ipController.text);
-                      if (isValidIP(value)) {
+                      widget.actionOnChanged(controller.text);
+                      if (widget.validatorFunc(value)) {
                         setState(() {
                           bottomAnimationValue = 0;
                           opacityAnimationValue = 1;
@@ -98,7 +101,7 @@ class _IPFieldState extends State<IPField> with SingleTickerProviderStateMixin {
             alignment: Alignment.bottomCenter,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 500),
-              width: widget.fadeIP ? 0 : 300,
+              width: widget.fade ? 0 : 300,
               child: TweenAnimationBuilder<double>(
                 tween: Tween(begin: 0, end: bottomAnimationValue),
                 curve: Curves.easeIn,
@@ -118,7 +121,7 @@ class _IPFieldState extends State<IPField> with SingleTickerProviderStateMixin {
             duration: const Duration(milliseconds: 500),
             padding: paddingAnimationValue,
             child: TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0, end: widget.fadeIP ? 0 : 1),
+              tween: Tween(begin: 0, end: widget.fade ? 0 : 1),
               duration: const Duration(milliseconds: 700),
               builder: ((context, value, child) => Opacity(
                     opacity: value,
@@ -139,9 +142,5 @@ class _IPFieldState extends State<IPField> with SingleTickerProviderStateMixin {
         ),
       ],
     );
-  }
-
-  bool isValidIP(String ip) {
-    return RegExp(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$').hasMatch(ip);
   }
 }
