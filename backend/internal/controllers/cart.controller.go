@@ -37,12 +37,12 @@ func AddArticle(c *gin.Context) {
 	articleObj.Price = article.Price
 	cart.Articles = append(cart.Articles, articleObj)
 	cart.Total = cart.Total + article.Price
-	res, erro := svc.UpdateCart(cart)
+	_, erro := svc.UpdateCart(cart)
 	if erro != nil {
 		log.Println(erro)
 		c.AbortWithStatusJSON(http.StatusInternalServerError, "Could not update cart")
 	}
-	c.JSON(http.StatusOK, res)
+	c.JSON(http.StatusOK, cart)
 }
 
 func RemoveArticle(c *gin.Context) {
@@ -61,14 +61,14 @@ func RemoveArticle(c *gin.Context) {
 	cart, _ := svc.GetCart(user.Cart)
 	for i, art := range cart.Articles {
 		if article.Name == art.Name {
+			userSvc.RemoveFromTotal(user, art.Price)
 			cart.Articles[i] = cart.Articles[len(cart.Articles)-1]
 			cart.Articles = cart.Articles[:len(cart.Articles)-1]
-			res, erro := svc.UpdateCart(cart)
+			_, erro := svc.UpdateCart(cart)
 			if erro != nil {
-				log.Println(erro)
 				c.AbortWithStatusJSON(http.StatusInternalServerError, "Could not update cart")
 			}
-			c.JSON(http.StatusOK, res)
+			c.JSON(http.StatusOK, cart)
 			return
 		}
 	}
