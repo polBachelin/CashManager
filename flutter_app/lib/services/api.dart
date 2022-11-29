@@ -48,7 +48,7 @@ class Server {
   Future<bool> pingServer(url) async {
     try {
       final response = await ServerRequest.getRequest(url, "", null);
-      return response.statusCode == 204 ? true : false;
+      return response.statusCode == 200 ? true : false;
     } catch (e) {
       return false;
     }
