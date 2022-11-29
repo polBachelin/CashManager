@@ -10,7 +10,7 @@ import (
 )
 
 func NewCartService() *Service {
-	return NewService("carts", "carts_data")
+	return NewService("carts_data")
 }
 
 func (c Service) CreateCart(obj models.Cart) (*mongo.InsertOneResult, error) {

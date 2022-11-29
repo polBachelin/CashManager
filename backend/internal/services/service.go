@@ -7,13 +7,13 @@ import (
 )
 
 type Service struct {
-	client     *mongo.Client
+	database   *mongo.Database
 	collection *mongo.Collection
 }
 
-func NewService(dbName string, collectionName string) *Service {
+func NewService(collectionName string) *Service {
 	s := &Service{}
-	s.client = database.GetDatabaseConnection()
-	s.collection = s.client.Database(dbName).Collection(collectionName)
+	s.database = database.GetDatabaseConnection()
+	s.collection = s.database.Collection(collectionName)
 	return s
 }
