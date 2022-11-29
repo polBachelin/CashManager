@@ -1,10 +1,10 @@
 import 'package:cash_manager/components/widgets/confirmpassword_field.dart';
 import 'package:cash_manager/components/widgets/email_field.dart';
-import 'package:cash_manager/components/widgets/get_register_button.dart';
-import 'package:cash_manager/components/widgets/get_started_button.dart';
+import 'package:cash_manager/components/widgets/classic_button.dart';
 import 'package:cash_manager/components/widgets/messages_screen.dart';
 import 'package:cash_manager/components/widgets/password_field.dart';
 import 'package:cash_manager/components/widgets/username_field.dart';
+import 'package:cash_manager/services/manager.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -97,15 +97,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 confirmpasswordController:
                                     confirmpasswordController),
                             const SizedBox(height: 60),
-                            GetRegisterButton(
+                            ClassicButton(
+                              text: "Sign up",
                               elementsOpacity: _elementsOpacity,
                               onTap: () {
                                 setState(() {
                                   _elementsOpacity = 0;
                                 });
-                                registerAuth(context, "googleCalendar");
+                                // Manager.of(context).api.register()
                               },
-                              onAnimatinoEnd: () async {
+                              onAnimationEnd: () async {
                                 await Future.delayed(
                                     const Duration(milliseconds: 500));
                                 setState(() {

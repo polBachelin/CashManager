@@ -1,18 +1,21 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class ServerRequest {
   static Future<http.Response> getRequest(
-      String url, String route, Map<String, String> headers) async {
+      String url, String route, Map<String, String>? headers) async {
     if (kDebugMode) {
       print("GET - $url$route - $headers");
     }
-    final response = await http.get(Uri.parse(url + route), headers: headers);
-    print("GET "+ response.statusCode.toString() + " - " + response.body);
-    //updateCookie(response, headers);
-    return response;
+    try {
+      final response = await http.get(Uri.parse(url + route), headers: headers);
+      print("GET ${response.statusCode} - ${response.body}");
+      //updateCookie(response, headers);
+      return response;
+    } catch (e) {
+      throw Exception("Impossible de trouver le serveur");
+    }
   }
 
   static Future<http.Response> postRequest(String url, String route,
