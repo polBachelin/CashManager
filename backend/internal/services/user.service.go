@@ -9,7 +9,7 @@ import (
 )
 
 func NewUserService() *Service {
-	return NewService("users", "user_data")
+	return NewService("user_data")
 }
 
 func (u Service) GetUserByEmail(email string) (models.User, error) {

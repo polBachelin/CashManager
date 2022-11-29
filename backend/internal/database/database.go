@@ -13,12 +13,20 @@ var dbHost = utils.GetEnvVar("DB_HOST", "0.0.0.0")
 var dbPort = utils.GetEnvVar("DB_PORT", "27017")
 var dbUsername = utils.GetEnvVar("DB_USERNAME", "root")
 var dbPass = utils.GetEnvVar("DB_PASSWORD", "pass12345")
+var dbName = utils.GetEnvVar("DB_NAME", "cash")
 var uri = "mongodb://" + dbUsername + ":" + dbPass + "@" + dbHost + ":" + dbPort
-var client *mongo.Client = nil
 
-func GetDatabaseConnection() *mongo.Client {
-	if client != nil {
-		return client
+type database struct {
+	db *mongo.Database
+}
+
+var databaseConnection = &database{
+	db: nil,
+}
+
+func GetDatabaseConnection() *mongo.Database {
+	if databaseConnection.db != nil {
+		return databaseConnection.db
 	}
 	clientOptions := options.Client().ApplyURI(uri)
 
@@ -33,8 +41,14 @@ func GetDatabaseConnection() *mongo.Client {
 	if err != nil {
 		log.Fatal(err)
 	}
+	db := &database{
+		db: client.Database(dbName),
+	}
+	return db.db
+}
 
-	return client
+func DropDatabase() {
+	GetDatabaseConnection().Drop(context.TODO())
 }
 
 type ErrDatabase string
