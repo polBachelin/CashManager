@@ -28,16 +28,16 @@ class NFCReaderPageState extends State<NFCReaderPage> {
                       Flexible(
                         flex: 2,
                         child: Container(
-                          margin: EdgeInsets.all(4),
+                          margin: EdgeInsets.all(8),
                           constraints: BoxConstraints.expand(),
                           decoration: BoxDecoration(border: Border.all()),
-                          child: SingleChildScrollView(
-                            child: ValueListenableBuilder<dynamic>(
-                              valueListenable: result,
-                              builder: (context, value, _) =>
-                                  Text('${value ?? ''}'),
-                            ),
-                          ),
+                          // child: SingleChildScrollView(
+                          //   child: ValueListenableBuilder<dynamic>(
+                          //     valueListenable: result,
+                          //     builder: (context, value, _) =>
+                          //         Text('${value ?? ''}'),
+                          //   ),
+                          // ),
                         ),
                       ),
                     ],
