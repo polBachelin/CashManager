@@ -1,6 +1,7 @@
 import 'package:cash_manager/pages/QR_code.dart';
 import 'package:cash_manager/pages/login_screen.dart';
 import 'package:cash_manager/pages/register_screen.dart';
+import 'package:cash_manager/pages/selectPayment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cash_manager/pages/select_server.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
-          '/': (context) => const RegisterScreen(),
+          '/': (context) => const SelectPayment(),
           // '/login': (context) => const LoginScreen(),
           // '/register': (context) => const RegisterScreen(),
           // '/buy': (context) => const BuyScreen(),

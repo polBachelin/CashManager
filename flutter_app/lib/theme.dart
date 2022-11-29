@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const Color blueColor = Color(0xff21579C);
-const Color ColorBackground = Color.fromARGB(255, 244, 251, 249);
+const Color ColorBackground = Color.fromARGB(255, 236, 250, 246);
 const Color ColorLogo = Color.fromARGB(255, 51, 119, 165);
 const Color ColorTitleText = Color.fromARGB(255, 50, 163, 138);
 const Color ColorText = Color.fromARGB(255, 145, 206, 193);
