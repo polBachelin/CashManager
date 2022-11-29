@@ -1,5 +1,5 @@
 import 'package:cash_manager/components/widgets/email_field.dart';
-import 'package:cash_manager/components/widgets/get_started_button.dart';
+import 'package:cash_manager/components/widgets/classic_button.dart';
 import 'package:cash_manager/components/widgets/messages_screen.dart';
 import 'package:cash_manager/components/widgets/password_field.dart';
 import 'package:cash_manager/theme.dart';
@@ -82,14 +82,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fadePassword: _elementsOpacity == 0,
                                 passwordController: passwordController),
                             const SizedBox(height: 60),
-                            GetStartedButton(
+                            ClassicButton(
+                              text: "Login",
                               elementsOpacity: _elementsOpacity,
                               onTap: () {
                                 setState(() {
                                   _elementsOpacity = 0;
                                 });
                               },
-                              onAnimatinoEnd: () async {
+                              onAnimationEnd: () async {
                                 await Future.delayed(
                                     const Duration(milliseconds: 500));
                                 setState(() {
