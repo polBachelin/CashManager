@@ -21,12 +21,12 @@ func Setup(r *gin.Engine) {
 		auth.GET("/user/balance", controllers.GetUserBalance)
 		auth.GET("/user/cart", controllers.GetUserCart)
 		auth.GET("/user/payment", controllers.UserPayment)
-		// auth.POST("/cart/articles/add", controllers.AddArticle)
-		// auth.POST("/cart/articles/remove", controllers.RemoveArticle)
+		auth.POST("/cart/articles/add", controllers.AddArticle)
+		auth.POST("/cart/articles/remove", controllers.RemoveArticle)
 	}
 	r.GET("/", Output204)
 	r.GET("/user", controllers.GetUser)
 	r.POST("/user", controllers.CreateUser)
 	r.POST("/auth", controllers.AuthenticateUser)
-	// r.GET("/articles", controllers.GetAllArticles)
+	r.GET("/articles", controllers.GetAllArticles)
 }

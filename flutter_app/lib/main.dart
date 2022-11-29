@@ -1,11 +1,15 @@
 import 'package:cash_manager/pages/QR_code.dart';
-import 'package:cash_manager/pages/login_screen.dart';
+import 'package:cash_manager/pages/buy_screen.dart';
 import 'package:cash_manager/pages/register_screen.dart';
 import 'package:cash_manager/pages/selectPayment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cash_manager/pages/select_server.dart';
 import 'package:cash_manager/services/manager.dart';
+
+void clearSharedPrefs(SharedPreferences prefs) async {
+  prefs.setBool('isLogged', false);
+}
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,17 +24,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //FlutterNativeSplash.remove();
+    clearSharedPrefs(prefs);
     return Manager(
         child: MaterialApp(
             title: 'Cash manager',
             // Start the app with the "/" named route. In this case, the app starts
             // on the RegisterScreen widget.
-            initialRoute: '/',
+            initialRoute: prefs.getBool("isLogged")! ? '/buy' : '/',
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
-          '/': (context) => const SelectPayment(),
+          '/': (context) => const RegisterScreen(),
           // '/login': (context) => const LoginScreen(),
           // '/register': (context) => const RegisterScreen(),
           // '/buy': (context) => const BuyScreen(),

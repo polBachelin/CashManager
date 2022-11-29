@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 
-class GetRegisterButton extends StatefulWidget {
+class ClassicButton extends StatefulWidget {
   final Function onTap;
-  final Function onAnimatinoEnd;
+  final Function? onAnimationEnd;
   final double elementsOpacity;
-  const GetRegisterButton(
+  final String text;
+  const ClassicButton(
       {super.key,
+      required this.text,
       required this.onTap,
-      required this.onAnimatinoEnd,
+      this.onAnimationEnd,
       required this.elementsOpacity});
 
   @override
-  State<GetRegisterButton> createState() => _GetRegisterButtonState();
+  State<ClassicButton> createState() => _ClassicButtonState();
 }
 
-class _GetRegisterButtonState extends State<GetRegisterButton> {
+class _ClassicButtonState extends State<ClassicButton> {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 300),
       tween: Tween(begin: 1, end: widget.elementsOpacity),
       onEnd: () async {
-        widget.onAnimatinoEnd();
+        widget.onAnimationEnd!();
       },
       builder: (_, value, __) => GestureDetector(
         onTap: () {
@@ -38,16 +40,16 @@ class _GetRegisterButtonState extends State<GetRegisterButton> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Text(
-                  "Send !",
-                  style: TextStyle(
+                  widget.text,
+                  style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
                       fontSize: 19),
                 ),
-                SizedBox(width: 15),
-                Icon(
+                const SizedBox(width: 15),
+                const Icon(
                   Icons.arrow_forward_rounded,
                   color: Colors.black,
                   size: 26,

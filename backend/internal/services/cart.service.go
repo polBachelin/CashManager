@@ -10,7 +10,7 @@ import (
 )
 
 func NewCartService() *Service {
-	return NewService("carts", "carts_data")
+	return NewService("carts_data")
 }
 
 func (c Service) CreateCart(obj models.Cart) (*mongo.InsertOneResult, error) {
@@ -41,4 +41,9 @@ func (c Service) ClearCart(obj models.Cart) {
 	obj.Articles = []models.Article{}
 	obj.Total = 0
 	c.collection.InsertOne(context.TODO(), obj)
+}
+
+func (c Service) UpdateCart(obj models.Cart) (*mongo.UpdateResult, error) {
+	change := bson.M{"$set": bson.M{"articles": obj.Articles, "total": obj.Total}}
+	return c.collection.UpdateByID(context.TODO(), obj.ID, change)
 }
