@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"cash/backend/pkg/utils"
 	"net/http"
 	"os"
 
@@ -8,7 +9,7 @@ import (
 )
 
 func GetAllArticles(c *gin.Context) {
-	dat, err := os.ReadFile("./articles.json")
+	dat, err := os.ReadFile(utils.GetEnvVar("ARTICLE_PATH", "./articles.json"))
 	if err != nil {
 		c.JSON(400, "Failed to read articles file")
 		return

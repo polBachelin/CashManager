@@ -112,7 +112,6 @@ func TestCreate(t *testing.T) {
 		req.Header.Set("Content-Type", "application/json")
 		w := httptest.NewRecorder()
 		r.ServeHTTP(w, req)
-
 		assert.Equal(t, http.StatusBadRequest, w.Code)
 	})
 }
@@ -194,7 +193,6 @@ func TestBalance(t *testing.T) {
 
 	t.Run("Get balance", func(t *testing.T) {
 		token := createAndAuthUser(r, "balance@example.com", "1234567890", 100.00)
-
 		newReq, _ := http.NewRequest("GET", "/balance", nil)
 		newReq.Header.Set("Authorization", "Bearer "+token)
 		w := httptest.NewRecorder()

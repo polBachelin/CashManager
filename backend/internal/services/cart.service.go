@@ -42,3 +42,8 @@ func (c Service) ClearCart(obj models.Cart) {
 	obj.Total = 0
 	c.collection.InsertOne(context.TODO(), obj)
 }
+
+func (c Service) UpdateCart(obj models.Cart) (*mongo.UpdateResult, error) {
+	change := bson.M{"$set": bson.M{"articles": obj.Articles, "total": obj.Total}}
+	return c.collection.UpdateByID(context.TODO(), obj.ID, change)
+}

@@ -3,6 +3,7 @@ package controllers
 import (
 	"cash/backend/internal/models"
 	service "cash/backend/internal/services"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -36,7 +37,12 @@ func AddArticle(c *gin.Context) {
 	articleObj.Price = article.Price
 	cart.Articles = append(cart.Articles, articleObj)
 	cart.Total = cart.Total + article.Price
-	c.JSON(http.StatusOK, cart)
+	res, erro := svc.UpdateCart(cart)
+	if erro != nil {
+		log.Println(erro)
+		c.AbortWithStatusJSON(http.StatusInternalServerError, "Could not update cart")
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 func RemoveArticle(c *gin.Context) {
@@ -57,7 +63,12 @@ func RemoveArticle(c *gin.Context) {
 		if article.Name == art.Name {
 			cart.Articles[i] = cart.Articles[len(cart.Articles)-1]
 			cart.Articles = cart.Articles[:len(cart.Articles)-1]
-			c.JSON(http.StatusOK, cart)
+			res, erro := svc.UpdateCart(cart)
+			if erro != nil {
+				log.Println(erro)
+				c.AbortWithStatusJSON(http.StatusInternalServerError, "Could not update cart")
+			}
+			c.JSON(http.StatusOK, res)
 			return
 		}
 	}
