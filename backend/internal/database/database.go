@@ -47,6 +47,10 @@ func GetDatabaseConnection() *mongo.Database {
 	return db.db
 }
 
+func DropDatabase() {
+	GetDatabaseConnection().Drop(context.TODO())
+}
+
 type ErrDatabase string
 
 func (e ErrDatabase) Error() string {

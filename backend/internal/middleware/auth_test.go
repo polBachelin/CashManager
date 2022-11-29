@@ -33,7 +33,7 @@ func TestAuthMiddlewareToken(t *testing.T) {
 	r := setupRouter()
 
 	req, _ := http.NewRequest("GET", "/", nil)
-	req.Header.Set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2I0NGUyMmQ0OTZhMzIzNzAxNDZkZiIsImV4cCI6MTY2OTExMDIzMH0.Y_rJCURW0LEIkUaQvVyTWt29CGJ-fYhmQq6Hv8KGiiE")
+	req.Header.Set("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2I0NGUyMmQ0OTZhMzIzNzAxNDZkZiJ9.ysOX0H8RLtYV8eKCnfYt1SXGukE-DUoSnXqfDWKYdvU")
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
@@ -44,7 +44,7 @@ func TestAuthMiddlewareTokenInvalid(t *testing.T) {
 	r := setupRouter()
 
 	req, _ := http.NewRequest("GET", "/", nil)
-	req.Header.Set("Authorization", "Bearer eyJhbGcJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2I0NGUyMmQ0OTZhMzIzNzAxNDZkZiIsImV4cCI6MTY2OTExMDIzMH0.Y_rJCURW0LEIkUaQvVyTWt29CGJ-fYhmQq6Hv8KGiiE")
+	req.Header.Set("Authorization", "Bearer eyJhbGciOiJIUzI1N.eyJpZCI6IjYzN2I0NGUyMmQ0OTZhMzIzNzAxNDZkZiJ9.jUraRdhccCXAMAKXgNY0U8HJ6y58Kww2TeULOn1PjrU")
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 

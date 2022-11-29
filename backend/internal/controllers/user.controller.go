@@ -119,7 +119,7 @@ func AuthenticateUser(c *gin.Context) {
 	svc := service.NewUserService()
 	dbUser, err := svc.GetUserByEmail(user.Email)
 	if err != nil {
-		fmt.Println("[ERR]: GET:/user/login: ", err)
+		fmt.Println("[ERR]: AuthenticateUser[122]: ", err)
 		c.JSON(http.StatusInternalServerError, "Could not get user")
 		return
 
