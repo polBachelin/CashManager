@@ -46,3 +46,14 @@ func (u Service) CreateUser(obj models.User) (interface{}, error) {
 	res, err := u.collection.InsertOne(context.TODO(), obj)
 	return res, err
 }
+
+func (u Service) UpdateUser(obj models.User) {
+	change := bson.M{"$set": bson.M{"balance": obj.Balance}}
+	u.collection.UpdateByID(context.TODO(), obj.ID, change)
+}
+
+func (u Service) RemoveFromTotal(obj models.User, toRemove float64) {
+	obj.Balance = obj.Balance - toRemove
+	change := bson.M{"$set": bson.M{"balance": obj.Balance}}
+	u.collection.UpdateByID(context.TODO(), obj.ID, change)
+}
