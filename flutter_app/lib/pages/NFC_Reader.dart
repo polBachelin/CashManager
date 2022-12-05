@@ -17,7 +17,7 @@ class NFCReaderPageState extends State<NFCReaderPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Ready to scan a NFC tag')),
+        appBar: AppBar(title: const Text('Ready to scan a NFC tag')),
         body: SafeArea(
           child: FutureBuilder<bool>(
             future: NfcManager.instance.isAvailable(),
@@ -30,8 +30,8 @@ class NFCReaderPageState extends State<NFCReaderPage> {
                       Flexible(
                         flex: 2,
                         child: Container(
-                          margin: EdgeInsets.all(8),
-                          constraints: BoxConstraints.expand(),
+                          margin: const EdgeInsets.all(8),
+                          constraints: const BoxConstraints.expand(),
                           decoration: BoxDecoration(border: Border.all()),
                           // child: SingleChildScrollView(
                           //   child: ValueListenableBuilder<dynamic>(

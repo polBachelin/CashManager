@@ -1,3 +1,4 @@
+import 'package:cash_manager/pages/NFC_Reader.dart';
 import 'package:cash_manager/pages/QR_code.dart';
 import 'package:cash_manager/theme.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +97,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const QRcodePage()));
+                        builder: (context) => const NFCReaderPage()));
               },
               onAnimationEnd: () async {
                 await Future.delayed(const Duration(milliseconds: 500));

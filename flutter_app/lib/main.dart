@@ -36,13 +36,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
-<<<<<<< HEAD
           '/register': (context) => const RegisterScreen(),
           '/qrcode': (context) => const QRcodePage(),
           '/profile': (context) => const QRcodePage(),
-=======
-          '/': (context) => const QRcodePage(),
->>>>>>> nfc_reader
+          '/nfcreader': (context) => const NFCReaderPage(),
           // '/login': (context) => const LoginScreen(),
           // '/register': (context) => const RegisterScreen(),
           '/': (context) => const SelectPayment(),
