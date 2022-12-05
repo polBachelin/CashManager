@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:nfc_manager/nfc_manager.dart';
 
 class NFCReaderPage extends StatefulWidget {
+  const NFCReaderPage({super.key});
+
   @override
   State<StatefulWidget> createState() => NFCReaderPageState();
 }
