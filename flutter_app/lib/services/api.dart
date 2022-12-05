@@ -62,8 +62,15 @@ class Server {
     return true;
   }
 
-  Future<bool> register() async {
-    return true;
+  Future<int> register(String username, String email, String password) async {
+    try {
+      print("$url/user");
+      final response = await ServerRequest.postRequest(url, "/user",
+          {"name": username, "email": email, "password": password}, headers);
+      return response.statusCode;
+    } catch (e) {
+      return 500;
+    }
   }
 
   Future<List<Article>> getArticles() async {

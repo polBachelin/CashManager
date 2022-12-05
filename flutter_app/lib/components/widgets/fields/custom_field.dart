@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 class CustomField extends StatefulWidget {
   final bool fade;
   final Function actionOnChanged;
-  final Function validatorFunc;
+  final Function ?validatorFunc;
   final TextInputType keyboardType;
+  final String hintText;
+
   const CustomField(
       {super.key,
       required this.fade,
       required this.actionOnChanged,
-      required this.validatorFunc,
+      required this.hintText,
+      this.validatorFunc,
       this.keyboardType = TextInputType.text});
 
   @override
@@ -66,12 +69,12 @@ class _CustomFieldState extends State<CustomField>
                 child: TextFormField(
                   controller: controller,
                   focusNode: node,
-                  decoration: const InputDecoration(hintText: "Ip Adress"),
+                  decoration: InputDecoration(hintText: widget.hintText),
                   keyboardType: TextInputType.text,
                   onChanged: (value) async {
                     if (value.isNotEmpty) {
                       widget.actionOnChanged(controller.text);
-                      if (widget.validatorFunc(value)) {
+                      if (widget.validatorFunc == null || widget.validatorFunc!(value)) {
                         setState(() {
                           bottomAnimationValue = 0;
                           opacityAnimationValue = 1;

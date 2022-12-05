@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           '/register': (context) => const RegisterScreen(),
           '/qrcode': (context) => const QRcodePage(),
           '/profile': (context) => const QRcodePage(),
-          // '/login': (context) => const LoginScreen(),
+          '/login': (context) => const LoginScreen(),
           // '/register': (context) => const RegisterScreen(),
           '/': (context) => const ServerPage(),
           '/buy': (context) => const BuyScreen(),

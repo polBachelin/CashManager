@@ -1,8 +1,8 @@
-import 'package:cash_manager/components/widgets/email_field.dart';
 import 'package:cash_manager/components/widgets/classic_button.dart';
+import 'package:cash_manager/components/widgets/fields/custom_field.dart';
 import 'package:cash_manager/components/widgets/messages_screen.dart';
-import 'package:cash_manager/components/widgets/password_field.dart';
 import 'package:cash_manager/theme.dart';
+import 'package:cash_manager/utils/regex.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,17 +13,22 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController emailController;
-  late TextEditingController passwordController;
+  String _email = "";
+  String _password = "";
   double _elementsOpacity = 1;
   bool loadingBallAppear = false;
   double loadingBallSize = 1;
-  @override
-  void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
 
-    super.initState();
+  void _getEmail(String email) {
+    setState(() {
+      _email = email;
+    });
+  }
+
+  void _getPassword(String password) {
+    setState(() {
+      _password = password;
+    });
   }
 
   @override
@@ -74,13 +79,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Column(
                           children: [
-                            EmailField(
-                                fadeEmail: _elementsOpacity == 0,
-                                emailController: emailController),
+                            CustomField(
+                                fade: _elementsOpacity == 0,
+                                validatorFunc: isValidEmail,
+                                actionOnChanged: _getEmail,
+                                hintText: "Email",
+                            ),
                             const SizedBox(height: 40),
-                            PasswordField(
-                                fadePassword: _elementsOpacity == 0,
-                                passwordController: passwordController),
+                            CustomField(
+                                fade: _elementsOpacity == 0,
+                                validatorFunc: null,
+                                actionOnChanged: _getPassword,
+                                hintText: "Password",
+                            ),
                             const SizedBox(height: 60),
                             ClassicButton(
                               text: "Login",
