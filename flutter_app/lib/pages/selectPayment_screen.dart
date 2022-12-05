@@ -1,9 +1,8 @@
-import 'package:cash_manager/components/widgets/email_field.dart';
-import 'package:cash_manager/components/widgets/get_started_button.dart';
-import 'package:cash_manager/components/widgets/messages_screen.dart';
-import 'package:cash_manager/components/widgets/password_field.dart';
+import 'package:cash_manager/pages/QR_code.dart';
 import 'package:cash_manager/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:cash_manager/components/widgets/classic_button.dart';
+import 'package:cash_manager/theme.dart';
 
 class SelectPayment extends StatefulWidget {
   const SelectPayment({super.key});
@@ -13,6 +12,9 @@ class SelectPayment extends StatefulWidget {
 }
 
 class _SelectPaymentState extends State<SelectPayment> {
+  double _elementsOpacity = 1;
+  bool loadingBallAppear = false;
+  double loadingBallSize = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,26 +60,50 @@ class _SelectPaymentState extends State<SelectPayment> {
               ],
             ),
             const SizedBox(
-              height: 40,
+              height: 150,
             ),
-            Container(
-              child: Row(
-                children: [
-                  FloatingActionButton.extended(
-                    label: const Text(
-                      'QRcode',
-                      selectionColor: ColorText,
-                    ),
-                    backgroundColor: ColorButton,
-                    icon: const Icon(
-                      Icons.qr_code_scanner_rounded,
-                      size: 24.0,
-                      color: ColorText,
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
+            ClassicButton(
+              text: "QRcode",
+              elementsOpacity: _elementsOpacity,
+              icon: Icons.qr_code_scanner_rounded,
+              onTap: () {
+                setState(() {
+                  _elementsOpacity = 0;
+                });
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const QRcodePage()));
+              },
+              onAnimationEnd: () async {
+                await Future.delayed(const Duration(milliseconds: 500));
+                setState(() {
+                  loadingBallAppear = true;
+                });
+              },
+            ),
+            const SizedBox(
+              height: 100,
+            ),
+            ClassicButton(
+              text: "NFCreader",
+              elementsOpacity: _elementsOpacity,
+              icon: Icons.nfc_rounded,
+              onTap: () {
+                setState(() {
+                  _elementsOpacity = 0;
+                });
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const QRcodePage()));
+              },
+              onAnimationEnd: () async {
+                await Future.delayed(const Duration(milliseconds: 500));
+                setState(() {
+                  loadingBallAppear = true;
+                });
+              },
             )
           ],
         ),

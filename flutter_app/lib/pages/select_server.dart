@@ -84,6 +84,7 @@ class ServerPageState extends State<ServerPage> {
             ),
             ClassicButton(
                 text: "Connect",
+                icon: Icons.arrow_forward_rounded,
                 onTap: () {
                   print("IP ADRESS: $_ip");
                   _connectServer(context, _ip).then((ret) {

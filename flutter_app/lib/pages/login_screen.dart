@@ -85,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ClassicButton(
                               text: "Login",
                               elementsOpacity: _elementsOpacity,
+                              icon: Icons.arrow_forward_rounded,
                               onTap: () {
                                 setState(() {
                                   _elementsOpacity = 0;

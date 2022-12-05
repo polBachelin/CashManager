@@ -34,10 +34,13 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
-          '/': (context) => const RegisterScreen(),
+          '/register': (context) => const RegisterScreen(),
+          '/qrcode': (context) => const QRcodePage(),
+          '/profile': (context) => const QRcodePage(),
           // '/login': (context) => const LoginScreen(),
           // '/register': (context) => const RegisterScreen(),
-          // '/buy': (context) => const BuyScreen(),
+          '/': (context) => const SelectPayment(),
+          '/buy': (context) => const BuyScreen(),
           // '/pay': (context) => const PayScreen(),
           // '/payment_infos': (context) => const PaymentInfosScreen(),
         }));
