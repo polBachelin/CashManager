@@ -100,6 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ClassicButton(
                               text: "Sign up",
                               elementsOpacity: _elementsOpacity,
+                              icon: Icons.arrow_forward_rounded,
                               onTap: () {
                                 setState(() {
                                   _elementsOpacity = 0;

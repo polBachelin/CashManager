@@ -46,11 +46,10 @@ class RFLargeButtonState extends State<RFLargeButton> {
           }
         },
         style: ElevatedButton.styleFrom(
-          shape: const StadiumBorder(),
-          primary: widget.backgroundColor,
-          padding: const EdgeInsets.all(13),
-          fixedSize: widget.size
-        ),
+            shape: const StadiumBorder(),
+            primary: widget.backgroundColor,
+            padding: const EdgeInsets.all(13),
+            fixedSize: widget.size),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

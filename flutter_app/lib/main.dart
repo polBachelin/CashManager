@@ -3,6 +3,7 @@ import 'package:cash_manager/pages/QR_code.dart';
 import 'package:cash_manager/pages/buy_screen.dart';
 import 'package:cash_manager/pages/ValidationPage.dart';
 import 'package:cash_manager/pages/register_screen.dart';
+import 'package:cash_manager/pages/selectPayment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cash_manager/pages/select_server.dart';
@@ -36,16 +37,14 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
-          '/validation': (context) => const ValidationPage(
-                title: 'Validation',
-              ),
-          // '/register': (context) => const RegisterScreen(),
-          // '/qrcode': (context) => const QRcodePage(),
-          // '/profile': (context) => const QRcodePage(),
+          '/register': (context) => const RegisterScreen(),
+          '/qrcode': (context) => const QRcodePage(),
+          '/profile': (context) => const QRcodePage(),
+          '/nfcreader': (context) => const NFCReaderPage(),
           // '/login': (context) => const LoginScreen(),
           // '/register': (context) => const RegisterScreen(),
-          // '/': (context) => const ServerPage(),
-          // '/buy': (context) => const BuyScreen(),
+          '/': (context) => const SelectPayment(),
+          '/buy': (context) => const BuyScreen(),
           // '/pay': (context) => const PayScreen(),
           // '/payment_infos': (context) => const PaymentInfosScreen(),
         }));
