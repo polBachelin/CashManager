@@ -49,8 +49,8 @@ dependencies:
   qr_code_scanner: ^1.0.1
   fluttertoast: ^8.1.1
   nfc_manager: ^3.2.0
-  confirm_dialog: ^1.0.1
-
+  alert: ^2.0.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

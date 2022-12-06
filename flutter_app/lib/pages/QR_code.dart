@@ -37,8 +37,7 @@ class _MyHomePageState extends State<QRcodePage> {
             flex: 1,
             child: Center(
                 child: (result != null)
-                    ? Text(
-                        "Data: ${result!.code}") //RESULTAT EN TEXTE EN BAS, FAIRE UN RETOUR A LA PAGE ARTICLE DANS LE TOAST
+                    ? Text("Data: ${result!.code}")
                     : const Text("Scan a code")))
       ],
     ));
