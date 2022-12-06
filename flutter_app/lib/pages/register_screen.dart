@@ -157,6 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ClassicButton(
                               text: "Sign up",
                               elementsOpacity: _elementsOpacity,
+                              icon: Icons.arrow_forward_rounded,
                               onTap: () {
                                 print("$_confirmedPassword $_email, $_password, $_password");
                                 _register(_username, _email, _password)

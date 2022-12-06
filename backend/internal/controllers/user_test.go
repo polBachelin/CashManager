@@ -239,7 +239,7 @@ func TestGet(t *testing.T) {
 		w := httptest.NewRecorder()
 		r.ServeHTTP(w, newReq)
 
-		assert.Equal(t, http.StatusOK, w.Code)
+		assert.Equal(t, http.StatusBadRequest, w.Code)
 	})
 }
 
@@ -293,5 +293,57 @@ func TestCart(t *testing.T) {
 		w := httptest.NewRecorder()
 		r.ServeHTTP(w, req)
 		assert.Equal(t, http.StatusBadRequest, w.Code)
+	})
+}
+
+func TestPayment(t *testing.T) {
+	teardownSuite := setupSuite(t)
+	defer teardownSuite(t)
+
+	r := setupRouter()
+	r.POST("/cart/articles/add", middleware.AuthRequired(), AddArticle)
+	r.GET("/user/payment", UserPayment)
+
+	token := createAndAuthUser(r, "pol.bachelin@gmail.com", "1234567890", 100.00)
+	t.Run("Pay", func(t *testing.T) {
+		body, _ := json.Marshal(ArticleJSON{Name: "nime free run", Price: 100.00, Image: "https://cdn.sportsshoes.com/product/N/NIK19385/NIK19385_1000_1.jpg"})
+		req, _ := http.NewRequest("POST", "/cart/articles/add", bytes.NewBuffer(body))
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Authorization", "Bearer "+token)
+		w := httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+
+		req, _ = http.NewRequest("GET", "/user/payment", nil)
+		req.Header.Set("Authorization", "Bearer "+token)
+		w = httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusOK, w.Code)
+	})
+	t.Run("No user", func(t *testing.T) {
+		body, _ := json.Marshal(ArticleJSON{Name: "nime free run", Price: 100.00, Image: "https://cdn.sportsshoes.com/product/N/NIK19385/NIK19385_1000_1.jpg"})
+		req, _ := http.NewRequest("POST", "/cart/articles/add", bytes.NewBuffer(body))
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Authorization", "Bearer "+token)
+		w := httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+
+		req, _ = http.NewRequest("GET", "/user/payment", nil)
+		w = httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusBadRequest, w.Code)
+	})
+	t.Run("No balance", func(t *testing.T) {
+		token := createAndAuthUser(r, "polo.bachelin@gmail.com", "1234567890", 40.00)
+		body, _ := json.Marshal(ArticleJSON{Name: "nime free run", Price: 100.00, Image: "https://cdn.sportsshoes.com/product/N/NIK19385/NIK19385_1000_1.jpg"})
+		req, _ := http.NewRequest("POST", "/cart/articles/add", bytes.NewBuffer(body))
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Authorization", "Bearer "+token)
+		w := httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+
+		req, _ = http.NewRequest("GET", "/user/payment", nil)
+		w = httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusInternalServerError, w.Code)
 	})
 }

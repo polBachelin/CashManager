@@ -40,7 +40,8 @@ func (c Service) GetCart(id primitive.ObjectID) (models.Cart, error) {
 func (c Service) ClearCart(obj models.Cart) {
 	obj.Articles = []models.Article{}
 	obj.Total = 0
-	c.collection.InsertOne(context.TODO(), obj)
+	change := bson.M{"$set": bson.M{"articles": obj.Articles, "total": obj.Total}}
+	c.collection.UpdateByID(context.TODO(), obj.ID, change)
 }
 
 func (c Service) UpdateCart(obj models.Cart) (*mongo.UpdateResult, error) {

@@ -29,10 +29,10 @@ func TestAdd(t *testing.T) {
 	t.Run("Wrong user", func(t *testing.T) {
 		req, _ := http.NewRequest("POST", "/cart/articles/add", nil)
 		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Authorization", "Bearer "+WrongIDToken)
+		req.Header.Set("Authorization", WrongIDToken)
 		w := httptest.NewRecorder()
 		r.ServeHTTP(w, req)
-		assert.Equal(t, http.StatusUnauthorized, w.Code)
+		assert.Equal(t, http.StatusBadRequest, w.Code)
 	})
 	t.Run("Fail bind", func(t *testing.T) {
 		body := "cool"
@@ -64,16 +64,27 @@ func TestRemove(t *testing.T) {
 		req, _ = http.NewRequest("POST", path, bytes.NewBuffer(body))
 		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("Authorization", "Bearer "+token)
+		w = httptest.NewRecorder()
 		r.ServeHTTP(w, req)
 		assert.Equal(t, http.StatusOK, w.Code)
+	})
+	t.Run("Remove artilce not found", func(t *testing.T) {
+		body, _ := json.Marshal(ArticleJSON{Name: "non existant shoe", Price: 100.00, Image: "https://cdn.sportsshoes.com/product/N/NIK19385/NIK19385_1000_1.jpg"})
+		req, _ := http.NewRequest("POST", path, bytes.NewBuffer(body))
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Authorization", "Bearer "+token)
+		w := httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusBadRequest, w.Code)
+
 	})
 	t.Run("Wrong user", func(t *testing.T) {
 		req, _ := http.NewRequest("POST", path, nil)
 		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Authorization", "Bearer "+WrongIDToken)
+		req.Header.Set("Authorization", WrongIDToken)
 		w := httptest.NewRecorder()
 		r.ServeHTTP(w, req)
-		assert.Equal(t, http.StatusUnauthorized, w.Code)
+		assert.Equal(t, http.StatusBadRequest, w.Code)
 	})
 	t.Run("Fail bind", func(t *testing.T) {
 		body := "cool"

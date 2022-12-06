@@ -86,6 +86,7 @@ class ServerPageState extends State<ServerPage> {
             ),
             ClassicButton(
                 text: "Connect",
+                icon: Icons.arrow_forward_rounded,
                 onTap: () {
                   _connectServer(_ip).then((ret) {
                     if (!ret) {

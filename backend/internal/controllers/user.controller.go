@@ -188,6 +188,6 @@ func UserPayment(c *gin.Context) {
 	}
 	user.Balance = user.Balance - cart.Total
 	cartService.ClearCart(cart)
-	svc.CreateUser(user)
+	svc.UpdateUser(user)
 	c.JSON(http.StatusOK, "Payment successful")
 }
