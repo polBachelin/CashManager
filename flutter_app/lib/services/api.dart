@@ -15,19 +15,16 @@ class Server {
     "Authorization": "Bearer "
   };
 
-  void updateToken() {
-    prefs.then((SharedPreferences p) {
-      p.reload();
-      if (p.getString("access_token") != null) {
-        accessToken = p.getString("access_token");
-        headers["Authorization"] = "Bearer ${p.getString("access_token")!}";
-      }
-      //print("TOKEN UPDATED ==> " + p.getString("access_token")!);
-    });
-  }
-
   void updateUrl(newUrl) {
     url = newUrl;
+  }
+
+  void updateAccessToken(String token) {
+    accessToken = token;
+    prefs.then((SharedPreferences p) {
+      p.setString("access_token", accessToken!);
+      headers["Authorization"] = "Bearer ${p.getString("access_token")!}";
+    });
   }
 
   Future<Tuple3<String, String, bool>> interceptTokenRegister(Server api,
@@ -58,15 +55,24 @@ class Server {
     return true;
   }
 
-  Future<bool> login() async {
-    return true;
-  }
-
   Future<int> register(String username, String email, String password) async {
     try {
       print("$url/user");
       final response = await ServerRequest.postRequest(url, "/user",
           {"name": username, "email": email, "password": password}, headers);
+      return response.statusCode;
+    } catch (e) {
+      return 500;
+    }
+  }
+
+  Future<int> login(String email, String password) async {
+    try {
+      final response = await ServerRequest.postRequest(
+          url, "/auth", {"email": email, "password": password}, headers);
+      if (response.statusCode == 200) {
+        updateAccessToken(json.decode(response.body)["token"]);
+      }
       return response.statusCode;
     } catch (e) {
       return 500;

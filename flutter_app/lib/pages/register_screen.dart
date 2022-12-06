@@ -34,12 +34,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<bool> _register(String username, String email, String password) async {
-    final response = await Manager.of(context).api.register(username, email, password);
-    if (response == 200) {
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, '/login');
-      return true;
-    }
+    final response =
+        await Manager.of(context).api.register(username, email, password);
     switch (response) {
       case 200:
         // ignore: use_build_context_synchronously
@@ -162,13 +158,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               text: "Sign up",
                               elementsOpacity: _elementsOpacity,
                               onTap: () {
-                                setState(() {
-                                  _elementsOpacity = 0;
+                                print("$_confirmedPassword $_email, $_password, $_password");
+                                _register(_username, _email, _password)
+                                    .then((value) {
+                                  if (value) {
+                                    setState(() {
+                                      _elementsOpacity = 0;
+                                    });
+                                  }
                                 });
-                                print(
-                                    "$_confirmedPassword $_email, $_password, $_password");
-                                _register(_username, _email, _password);
-                                // Manager.of(context).api.register()
                               },
                               onAnimationEnd: () async {
                                 await Future.delayed(

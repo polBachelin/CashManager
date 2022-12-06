@@ -1,6 +1,8 @@
+import 'package:cash_manager/components/animations/toast.dart';
 import 'package:cash_manager/components/widgets/classic_button.dart';
 import 'package:cash_manager/components/widgets/fields/custom_field.dart';
 import 'package:cash_manager/components/widgets/messages_screen.dart';
+import 'package:cash_manager/services/manager.dart';
 import 'package:cash_manager/theme.dart';
 import 'package:cash_manager/utils/regex.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,21 @@ class _LoginScreenState extends State<LoginScreen> {
   double _elementsOpacity = 1;
   bool loadingBallAppear = false;
   double loadingBallSize = 1;
+
+  Future<bool> _login(String email, String password) async {
+    final response = await Manager.of(context).api.login(email, password);
+    switch (response) {
+      case 200:
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(context, '/buy');
+        break;
+      default:
+        break;
+    }
+    // ignore: use_build_context_synchronously
+    toast(context, "Impossible de me connecter");
+    return false;
+  }
 
   void _getEmail(String email) {
     setState(() {
@@ -80,25 +97,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(
                           children: [
                             CustomField(
-                                fade: _elementsOpacity == 0,
-                                validatorFunc: isValidEmail,
-                                actionOnChanged: _getEmail,
-                                hintText: "Email",
+                              fade: _elementsOpacity == 0,
+                              validatorFunc: isValidEmail,
+                              actionOnChanged: _getEmail,
+                              hintText: "Email",
                             ),
                             const SizedBox(height: 40),
                             CustomField(
-                                fade: _elementsOpacity == 0,
-                                validatorFunc: null,
-                                actionOnChanged: _getPassword,
-                                hintText: "Password",
+                              fade: _elementsOpacity == 0,
+                              validatorFunc: null,
+                              actionOnChanged: _getPassword,
+                              hintText: "Password",
                             ),
                             const SizedBox(height: 60),
                             ClassicButton(
                               text: "Login",
                               elementsOpacity: _elementsOpacity,
                               onTap: () {
-                                setState(() {
-                                  _elementsOpacity = 0;
+                                _login(_email, _password).then((value) {
+                                  if (value) {
+                                    setState(() {
+                                      _elementsOpacity = 0;
+                                    });
+                                  }
                                 });
                               },
                               onAnimationEnd: () async {
