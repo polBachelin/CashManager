@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:io';
+import 'package:cash_manager/components/animations/toast.dart';
 
 class QRcodePage extends StatefulWidget {
   const QRcodePage({super.key});
@@ -36,8 +37,7 @@ class _MyHomePageState extends State<QRcodePage> {
             flex: 1,
             child: Center(
                 child: (result != null)
-                    ? Text(
-                        "Data: ${result!.code}")
+                    ? Text("Data: ${result!.code}")
                     : const Text("Scan a code")))
       ],
     ));
