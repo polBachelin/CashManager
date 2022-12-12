@@ -1,7 +1,6 @@
 import 'package:cash_manager/pages/NFC_Reader.dart';
 import 'package:cash_manager/pages/QR_code.dart';
 import 'package:cash_manager/pages/buy_screen.dart';
-import 'package:cash_manager/pages/ValidationPage.dart';
 import 'package:cash_manager/pages/register_screen.dart';
 import 'package:cash_manager/pages/login_screen.dart';
 import 'package:cash_manager/pages/selectPayment_screen.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cash_manager/pages/select_server.dart';
 import 'package:cash_manager/services/manager.dart';
-import 'package:cash_manager/pages/NFC_Reader.dart';
 
 void clearSharedPrefs(SharedPreferences prefs) async {
   prefs.setBool('isLogged', false);
