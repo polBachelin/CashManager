@@ -1,0 +1,39 @@
+{
+  "articles": [
+    {
+      "name": "nime free run",
+      "price": 100.0,
+      "image": "https://cdn.sportsshoes.com/product/N/NIK19385/NIK19385_1000_1.jpg"
+    },
+    {
+      "name": "nime low",
+      "price": 230.0,
+      "image": "https://cdn.shopify.com/s/files/1/2358/2817/products/dunk-low-next-nature-black-white-330678_5000x.png?v=1638813895"
+    },
+    {
+      "name": "nime cyberpunk",
+      "price": 560.0,
+      "image": "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,b_rgb:f5f5f5/6362ebb8-ad24-428c-9b2b-293e99410f42/chaussure-facile-a-enfiler-et-a-retirer-go-flyease-VL4VqZ.png"
+    },
+    {
+      "name": "nime green goblin",
+      "price": 199.0,
+      "image": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/57dd56da-b069-4c63-bece-4810c1067215/chaussure-de-running-sur-route-pegasus-39-pour-rZmWzq.png"
+    },
+    {
+      "name": "nime power ranger",
+      "price": 120.0,
+      "image": "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e51458c6-c11d-49e0-9633-4df465370930/custom-nike-air-max-90-by-you.png"
+    },
+    {
+      "name": "nime girl time",
+      "price": 20.0,
+      "image": "https://www.lesitedelasneaker.com/wp-content/images/2021/02/nike-air-max-plus-atlanta-DH0155-600-date-sortie9.jpg"
+    },
+    {
+      "name": "Polo le génie",
+      "price": 999.99,
+      "image": "https://img01.ztat.net/article/spp-media-p1/c6b101f10da84f668266cd952aa7ae5b/d2b3d83558544494b0176cd6a8951081.jpg?imwidth=1800&filter=packshot"
+    }
+  ]
+}
