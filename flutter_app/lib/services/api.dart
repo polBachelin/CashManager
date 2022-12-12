@@ -80,28 +80,19 @@ class Server {
   }
 
   Future<List<Article>> getArticles() async {
-    String articlesString = '''[
-    {
-      "id": 1,
-      "name": "Ryan Jordan 1",
-      "price": 32
-    },
-    {
-      "id": 2,
-      "name": "Conversation",
-      "price": 3,
-    },
-    {
-      "id": 3,
-      "name": "Will Smith",
-      "price": 30
-    },
-]
-    ''';
-
-    final parsed = json.decode(articlesString).cast<Map<String, dynamic>>();
-    print("TOTO");
-    print(articlesListFromJson(articlesString));
-    return parsed.map<Article>((json) => Article.fromJson(json)).toList();
+    try {
+      final response = await ServerRequest.getRequest(
+          "http://10.19.246.178:8080", "/articles", headers);
+      if (response.statusCode == 200) {
+        print(articlesListFromJson(response.body));
+        return articlesListFromJson(response.body);
+      } else {
+        return List<Article>.empty();
+      }
+    } catch (e) {
+      print(e);
+      return List<Article>.empty();
+      // return null;
+    }
   }
 }

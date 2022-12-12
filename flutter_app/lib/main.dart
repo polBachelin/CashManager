@@ -1,6 +1,7 @@
 import 'package:cash_manager/pages/NFC_Reader.dart';
 import 'package:cash_manager/pages/QR_code.dart';
 import 'package:cash_manager/pages/buy_screen.dart';
+import 'package:cash_manager/pages/ValidationPage.dart';
 import 'package:cash_manager/pages/register_screen.dart';
 import 'package:cash_manager/pages/login_screen.dart';
 import 'package:cash_manager/pages/selectPayment_screen.dart';
@@ -33,22 +34,19 @@ class MyApp extends StatelessWidget {
             title: 'Cash manager',
             // Start the app with the "/" named route. In this case, the app starts
             // on the RegisterScreen widget.
-            initialRoute: prefs.getBool("isLogged")! ? '/buy' : '/',
+            initialRoute: prefs.getBool("isLogged")! ? '/buy' : '/buy',
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
-          '/register': (context) => const RegisterScreen(),
-          '/qrcode': (context) => const QRcodePage(),
-          '/profile': (context) => const QRcodePage(),
-          '/login': (context) => const LoginScreen(),
-          '/': (context) => const ServerPage(),
-          '/nfcreader': (context) => const NFCReaderPage(),
-          // '/login': (context) => const LoginScreen(),
-          // '/register': (context) => const RegisterScreen(),
-          '/': (context) => const SelectPayment(),
-          '/buy': (context) => const BuyScreen(),
-          // '/pay': (context) => const PayScreen(),
-          // '/payment_infos': (context) => const PaymentInfosScreen(),
+              '/register': (context) => const RegisterScreen(),
+              '/qrcode': (context) => const QRcodePage(),
+              '/login': (context) => const LoginScreen(),
+              '/': (context) => const ServerPage(),
+              '/nfcreader': (context) => const NFCReaderPage(),
+              '/select': (context) => const SelectPayment(),
+              '/buy': (context) => const BuyScreen(),
+              // '/pay': (context) => const PayScreen(),
+              // '/payment_infos': (context) => const PaymentInfosScreen(),
         }));
   }
 }

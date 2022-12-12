@@ -26,7 +26,7 @@ class BuyScreenState extends State<BuyScreen> {
         body: FutureBuilder<List>(
             future: Manager.of(context).api.getArticles(),
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 print(snapshot.data);
                 return ListView.builder(
                     itemCount: snapshot.data![0].length,
