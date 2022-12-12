@@ -34,7 +34,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -44,12 +43,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30.0),
                 child: MessagesScreen())
             : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 70),
+                      const SizedBox(height: 40),
                       TweenAnimationBuilder<double>(
                         duration: const Duration(milliseconds: 300),
                         tween: Tween(begin: 1, end: _elementsOpacity),
@@ -86,7 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             UsernameField(
                                 fadeUsername: _elementsOpacity == 0,
                                 usernameController: usernameController),
-                            const SizedBox(height: 60),
+                            const SizedBox(height: 40),
                             EmailField(
                                 fadeEmail: _elementsOpacity == 0,
                                 emailController: emailController),
@@ -94,12 +93,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             PasswordField(
                                 fadePassword: _elementsOpacity == 0,
                                 passwordController: passwordController),
-                            const SizedBox(height: 60),
+                            const SizedBox(height: 40),
                             ConfirmpasswordField(
                                 fadePassword: _elementsOpacity == 0,
                                 confirmpasswordController:
                                     confirmpasswordController),
-                            const SizedBox(height: 60),
+                            const SizedBox(height: 40),
                             ClassicButton(
                               text: "Sign up",
                               elementsOpacity: _elementsOpacity,
