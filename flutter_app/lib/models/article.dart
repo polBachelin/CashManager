@@ -2,34 +2,28 @@
 import 'dart:convert';
 
 List<Article> articlesListFromJson(String str) =>
-  List<Article>.from(json.decode(str).map((x) => Article.fromJson(x)));
+  List<Article>.from(json.decode(str)["articles"].map((x) => Article.fromJson(x)));
 
 class Article {
   final String name;
-  final int nb;
-  final int price;
+  final double price;
+  final String image;
 
   Article({
     required this.name,
-    required this.nb,
     required this.price,
+    required this.image,
   });
-
-
 
   factory Article.fromJson(Map<String, dynamic> json) => Article(
         name: json['name'],
-        nb: json['nb'],
         price: json['price'],
+        image: json['image'],
       );
 
   Map<String, dynamic> toJson() => {
         'name': name,
-        'nb': nb,
         'price': price,
+        'image': image,
       };
-
-  int computeTotalPrice() {
-    return nb * price;
-  }
 }

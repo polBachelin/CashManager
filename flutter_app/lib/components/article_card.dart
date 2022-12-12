@@ -39,7 +39,7 @@ class ArticleCardState extends State<ArticleCard> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              leading: const Icon(Icons.album), //TODO: remplacer par une image d'article
+              leading: Image.network(widget.article.image),
               title: Text(widget.article.name),
               subtitle: Text("${widget.article.price}€"),
             ),

@@ -15,32 +15,35 @@ class BuyScreenState extends State<BuyScreen> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
-        body: FutureBuilder<List>(
-            future: Manager.of(context).api.getArticles(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                print(snapshot.data);
-                return ListView.builder(
-                    itemCount: snapshot.data![0].length,
-                    itemBuilder: (context, i) {
-                      return ArticleCard(article: snapshot.data![1]);
-                    });
-              } else {
-                return const Center(
-                    child: Text("No Articles availables",
-                        style: TextStyle(
-                            color: theme.blueColor,
-                            fontFamily: "Comic Sans MS",
-                            fontSize: 30)));
-              }
-            }));
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: FutureBuilder<List>(
+                future: Manager.of(context).api.getArticles(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        //shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, i) {
+                          return ArticleCard(article: snapshot.data![i]);
+                        });
+                  } else {
+                    return const Center(
+                        child: Text("No Articles availables",
+                            style: TextStyle(
+                                color: theme.blueColor,
+                                fontFamily: "Comic Sans MS",
+                                fontSize: 30)));
+                  }
+                }
+              )),
+            Text("COCO", style: TextStyle(color: theme.ColorText),)
+        ]));
   }
 }

@@ -81,10 +81,8 @@ class Server {
 
   Future<List<Article>> getArticles() async {
     try {
-      final response = await ServerRequest.getRequest(
-          "http://10.19.246.178:8080", "/articles", headers);
+      final response = await ServerRequest.getRequest("http://10.19.246.178:8080", "/articles", headers);
       if (response.statusCode == 200) {
-        print(articlesListFromJson(response.body));
         return articlesListFromJson(response.body);
       } else {
         return List<Article>.empty();
