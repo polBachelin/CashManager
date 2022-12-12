@@ -1,6 +1,7 @@
 import 'package:cash_manager/pages/NFC_Reader.dart';
 import 'package:cash_manager/pages/QR_code.dart';
 import 'package:cash_manager/pages/buy_screen.dart';
+import 'package:cash_manager/pages/ValidationPage.dart';
 import 'package:cash_manager/pages/register_screen.dart';
 import 'package:cash_manager/pages/login_screen.dart';
 import 'package:cash_manager/pages/selectPayment_screen.dart';
@@ -45,8 +46,8 @@ class MyApp extends StatelessWidget {
           '/nfcreader': (context) => const NFCReaderPage(),
           // '/login': (context) => const LoginScreen(),
           // '/register': (context) => const RegisterScreen(),
-          '/': (context) => const SelectPayment(),
-          '/buy': (context) => const BuyScreen(),
+          '/select': (context) => const SelectPayment(),
+          // '/buy': (context) => const BuyScreen(),
           // '/pay': (context) => const PayScreen(),
           // '/payment_infos': (context) => const PaymentInfosScreen(),
         }));
