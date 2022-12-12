@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cash_manager/pages/select_server.dart';
 import 'package:cash_manager/services/manager.dart';
 import 'package:cash_manager/pages/NFC_Reader.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 void clearSharedPrefs(SharedPreferences prefs) async {
   prefs.setBool('isLogged', false);
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
-          '/': (context) => ValidationPage(),
+          '/': (context) => const RegisterScreen(),
           // '/register': (context) => const RegisterScreen(),
           // '/qrcode': (context) => const QRcodePage(),
           // '/profile': (context) => const QRcodePage(),

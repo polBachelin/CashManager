@@ -50,6 +50,8 @@ dependencies:
   fluttertoast: ^8.1.1
   nfc_manager: ^3.2.0
   alert: ^2.0.1
+  responsive_framework: ^0.2.0
+
   
 dev_dependencies:
   flutter_test:

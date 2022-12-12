@@ -34,6 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final currentWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -63,7 +64,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               const Text(
                                 "Register,",
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 35),
+                                  color: Colors.black,
+                                  fontSize: 35,
+                                ),
                               ),
                               Text(
                                 "Remplir le formulaire",
