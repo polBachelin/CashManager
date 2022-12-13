@@ -1,9 +1,9 @@
 import 'package:cash_manager/pages/NFC_Reader.dart';
 import 'package:cash_manager/pages/QR_code.dart';
+import 'package:cash_manager/pages/ValidationPage.dart';
 import 'package:cash_manager/pages/buy_screen.dart';
 import 'package:cash_manager/pages/register_screen.dart';
 import 'package:cash_manager/pages/login_screen.dart';
-import 'package:cash_manager/pages/selectPayment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_manager/components/buy_page/cartStorage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             title: 'Cash manager',
             // Start the app with the "/" named route. In this case, the app starts
             // on the RegisterScreen widget.
-            initialRoute: prefs.getBool("isLogged")! ? '/buy' : '/buy',
+            initialRoute: prefs.getBool("isLogged")! ? '/validate' : '/validate',
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
               '/': (context) => const ServerPage(),
               '/nfcreader': (context) => const NFCReaderPage(),
               '/buy': (context) => BuyScreen(storage: CartStorage()),
+              '/validate': (context) => const ValidationPage(paymentInfos: "CONNERIES")
               // '/pay': (context) => const PayScreen(),
               // '/payment_infos': (context) => const PaymentInfosScreen(),
         }));

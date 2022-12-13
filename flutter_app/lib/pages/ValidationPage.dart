@@ -1,10 +1,11 @@
 import 'package:cash_manager/components/widgets/classic_button.dart';
-import 'package:cash_manager/pages/selectPayment_screen.dart';
 import 'package:cash_manager/theme.dart';
 import 'package:flutter/material.dart';
 
 class ValidationPage extends StatefulWidget {
-  const ValidationPage({super.key});
+  const ValidationPage({super.key, required this.paymentInfos});
+
+  final String? paymentInfos;
 
   @override
   State<ValidationPage> createState() => _ValidationPageState();
@@ -14,6 +15,8 @@ class _ValidationPageState extends State<ValidationPage> {
   double _elementsOpacity = 1;
   bool loadingBallAppear = false;
   double loadingBallSize = 1;
+
+  bool paymentSucceed = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,24 +57,21 @@ class _ValidationPageState extends State<ValidationPage> {
               height: 150,
             ),
             ClassicButton(
-              text: 'Go back',
+              text: paymentSucceed ? 'Go back' : "Cancel",
               elementsOpacity: _elementsOpacity,
-              icon: Icons.arrow_back_sharp,
+              icon: paymentSucceed ? Icons.arrow_back_sharp : Icons.cancel,
               onTap: () {
                 setState(() {
                   _elementsOpacity = 0;
                 });
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SelectPayment()));
+                Navigator.pushReplacementNamed(context, '/buy');                  
               },
-              // onAnimationEnd: () async {
-              //   await Future.delayed(const Duration(milliseconds: 500));
-              //   setState(() {
-              //     loadingBallAppear = true;
-              //   });
-              // },
+              onAnimationEnd: () async {
+                await Future.delayed(const Duration(milliseconds: 500));
+                setState(() {
+                  loadingBallAppear = true;
+                });
+              },
             ),
           ],
         ),

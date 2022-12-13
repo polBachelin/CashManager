@@ -1,3 +1,4 @@
+import 'package:cash_manager/pages/ValidationPage.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:io';
@@ -48,6 +49,8 @@ class _MyHomePageState extends State<QRcodePage> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => ValidationPage(paymentInfos: scanData.code)));
       });
     });
   }
