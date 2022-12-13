@@ -6,11 +6,17 @@ class ClassicButton extends StatefulWidget {
   final Function? onAnimationEnd;
   final double elementsOpacity;
   final String text;
+  final double width;
+  final double height;
+  final double sizeText;
   final IconData? icon;
   const ClassicButton({
     super.key,
     required this.text,
     required this.onTap,
+    required this.width,
+    required this.sizeText,
+    required this.height,
     this.onAnimationEnd,
     required this.elementsOpacity,
     this.icon,
@@ -36,8 +42,8 @@ class _ClassicButtonState extends State<ClassicButton> {
         child: Opacity(
           opacity: value,
           child: Container(
-            width: 230,
-            height: 75,
+            height: widget.height,
+            width: widget.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: ColorButton,
@@ -47,16 +53,16 @@ class _ClassicButtonState extends State<ClassicButton> {
               children: [
                 Text(
                   widget.text,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: ColorTextButton,
-                      fontSize: 19),
+                      fontSize: widget.sizeText),
                 ),
-                const SizedBox(width: 50),
+                const SizedBox(width: 30),
                 Icon(
                   widget.icon,
                   color: ColorLogo,
-                  size: 26,
+                  size: 10,
                 ),
               ],
             ),

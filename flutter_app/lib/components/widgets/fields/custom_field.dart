@@ -1,30 +1,39 @@
 import 'package:cash_manager/theme.dart';
 import 'package:flutter/material.dart';
 
-class EmailField extends StatefulWidget {
-  final bool fadeEmail;
-  final TextEditingController emailController;
-  const EmailField(
-      {super.key, required this.emailController, required this.fadeEmail});
+class CustomField extends StatefulWidget {
+  final bool fade;
+  final Function actionOnChanged;
+  final Function ?validatorFunc;
+  final TextInputType keyboardType;
+  final String hintText;
+
+  const CustomField(
+      {super.key,
+      required this.fade,
+      required this.actionOnChanged,
+      required this.hintText,
+      this.validatorFunc,
+      this.keyboardType = TextInputType.text});
 
   @override
-  State<EmailField> createState() => _EmailFieldState();
+  State<CustomField> createState() => _CustomFieldState();
 }
 
-class _EmailFieldState extends State<EmailField>
+class _CustomFieldState extends State<CustomField>
     with SingleTickerProviderStateMixin {
   double bottomAnimationValue = 0;
   double opacityAnimationValue = 0;
   EdgeInsets paddingAnimationValue = const EdgeInsets.only(top: 22);
 
-  late TextEditingController emailController;
+  late TextEditingController controller;
   late AnimationController _animationController;
   late Animation<Color?> _animation;
 
   FocusNode node = FocusNode();
   @override
   void initState() {
-    emailController = widget.emailController;
+    controller = TextEditingController();
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
     final tween = ColorTween(begin: Colors.grey.withOpacity(0), end: blueColor);
@@ -54,17 +63,18 @@ class _EmailFieldState extends State<EmailField>
       children: [
         TweenAnimationBuilder<double>(
           duration: const Duration(milliseconds: 300),
-          tween: Tween(begin: 0, end: widget.fadeEmail ? 0 : 1),
+          tween: Tween(begin: 0, end: widget.fade ? 0 : 1),
           builder: ((_, value, __) => Opacity(
                 opacity: value,
                 child: TextFormField(
-                  controller: emailController,
+                  controller: controller,
                   focusNode: node,
-                  decoration: const InputDecoration(hintText: "Email"),
-                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(hintText: widget.hintText),
+                  keyboardType: TextInputType.text,
                   onChanged: (value) async {
                     if (value.isNotEmpty) {
-                      if (isValidEmail(value)) {
+                      widget.actionOnChanged(controller.text);
+                      if (widget.validatorFunc == null || widget.validatorFunc!(value)) {
                         setState(() {
                           bottomAnimationValue = 0;
                           opacityAnimationValue = 1;
@@ -94,7 +104,7 @@ class _EmailFieldState extends State<EmailField>
             alignment: Alignment.bottomCenter,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 500),
-              width: widget.fadeEmail ? 0 : 300,
+              width: widget.fade ? 0 : 300,
               child: TweenAnimationBuilder<double>(
                 tween: Tween(begin: 0, end: bottomAnimationValue),
                 curve: Curves.easeIn,
@@ -114,7 +124,7 @@ class _EmailFieldState extends State<EmailField>
             duration: const Duration(milliseconds: 500),
             padding: paddingAnimationValue,
             child: TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0, end: widget.fadeEmail ? 0 : 1),
+              tween: Tween(begin: 0, end: widget.fade ? 0 : 1),
               duration: const Duration(milliseconds: 700),
               builder: ((context, value, child) => Opacity(
                     opacity: value,
@@ -135,11 +145,5 @@ class _EmailFieldState extends State<EmailField>
         ),
       ],
     );
-  }
-
-  bool isValidEmail(String email) {
-    return RegExp(
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(email);
   }
 }

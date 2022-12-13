@@ -1,5 +1,5 @@
 import 'package:cash_manager/components/animations/toast.dart';
-import 'package:cash_manager/components/widgets/fields/ip_field.dart';
+import 'package:cash_manager/components/widgets/fields/custom_field.dart';
 import 'package:cash_manager/components/widgets/classic_button.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_manager/theme.dart';
@@ -18,11 +18,6 @@ class ServerPageState extends State<ServerPage> {
   double _elementsOpacity = 1;
   final TextEditingController ipController = TextEditingController();
   String _ip = "";
-
-  bool _printLatestValue() {
-    print('Value: $_ip');
-    return true;
-  }
 
   void updateIPServer(String server) {
     setState(() {
@@ -43,19 +38,24 @@ class ServerPageState extends State<ServerPage> {
     _elementsOpacity = 0;
   }
 
+  bool isValidIP(String ip) {
+    return RegExp(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$').hasMatch(ip);
+  }
+
   void _getIp(String ip) {
     setState(() {
       _ip = ip;
     });
   }
 
-  Future<bool> _connectServer(BuildContext context, String ipAdress) async {
-    ipAdress = "http://$ipAdress:8080";
+  Future<bool> _connectServer(String ipAdress) async {
+    String url = "http://$ipAdress:8080";
 
-    final response = await Manager.of(context).api.pingServer(ipAdress);
+    final response = await Manager.of(context).api.pingServer(url);
     if (response) {
-      final SharedPreferences prefs = await _prefs;
-      Manager.of(context).api.updateUrl(prefs.getString('server_url'));
+      // ignore: use_build_context_synchronously
+      Manager.of(context).api.updateUrl(url);
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/register');
       return true;
     }
@@ -74,20 +74,24 @@ class ServerPageState extends State<ServerPage> {
           ),
           child: ListView(shrinkWrap: true, children: <Widget>[
             const Text("Select a server"),
-            IPField(
-                fadeIP: _elementsOpacity == 1,
-                ipController: ipController,
-                action: _getIp),
+            CustomField(
+              hintText: "Enter an Ip Adress",
+              fade: _elementsOpacity == 1,
+              actionOnChanged: _getIp,
+              validatorFunc: isValidIP,
+            ),
             const SizedBox(height: 30),
             Container(
               margin: const EdgeInsets.only(top: 15.0),
             ),
             ClassicButton(
+                width: 100,
+                height: 50,
+                sizeText: 20,
                 text: "Connect",
                 icon: Icons.arrow_forward_rounded,
                 onTap: () {
-                  print("IP ADRESS: $_ip");
-                  _connectServer(context, _ip).then((ret) {
+                  _connectServer(_ip).then((ret) {
                     if (!ret) {
                       toast(context,
                           "La connexion au serveur a échoué. Réessayez !");

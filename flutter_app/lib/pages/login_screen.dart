@@ -1,8 +1,10 @@
-import 'package:cash_manager/components/widgets/email_field.dart';
+import 'package:cash_manager/components/animations/toast.dart';
 import 'package:cash_manager/components/widgets/classic_button.dart';
+import 'package:cash_manager/components/widgets/fields/custom_field.dart';
 import 'package:cash_manager/components/widgets/messages_screen.dart';
-import 'package:cash_manager/components/widgets/password_field.dart';
+import 'package:cash_manager/services/manager.dart';
 import 'package:cash_manager/theme.dart';
+import 'package:cash_manager/utils/regex.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,17 +15,37 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late TextEditingController emailController;
-  late TextEditingController passwordController;
+  String _email = "";
+  String _password = "";
   double _elementsOpacity = 1;
   bool loadingBallAppear = false;
   double loadingBallSize = 1;
-  @override
-  void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
 
-    super.initState();
+  Future<bool> _login(String email, String password) async {
+    final response = await Manager.of(context).api.login(email, password);
+    switch (response) {
+      case 200:
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(context, '/buy');
+        break;
+      default:
+        break;
+    }
+    // ignore: use_build_context_synchronously
+    toast(context, "Impossible de me connecter");
+    return false;
+  }
+
+  void _getEmail(String email) {
+    setState(() {
+      _email = email;
+    });
+  }
+
+  void _getPassword(String password) {
+    setState(() {
+      _password = password;
+    });
   }
 
   @override
@@ -74,21 +96,34 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Column(
                           children: [
-                            EmailField(
-                                fadeEmail: _elementsOpacity == 0,
-                                emailController: emailController),
+                            CustomField(
+                              fade: _elementsOpacity == 0,
+                              validatorFunc: isValidEmail,
+                              actionOnChanged: _getEmail,
+                              hintText: "Email",
+                            ),
                             const SizedBox(height: 40),
-                            PasswordField(
-                                fadePassword: _elementsOpacity == 0,
-                                passwordController: passwordController),
+                            CustomField(
+                              fade: _elementsOpacity == 0,
+                              validatorFunc: null,
+                              actionOnChanged: _getPassword,
+                              hintText: "Password",
+                            ),
                             const SizedBox(height: 60),
                             ClassicButton(
+                              width: 100,
+                              height: 50,
+                              sizeText: 20,
                               text: "Login",
                               elementsOpacity: _elementsOpacity,
                               icon: Icons.arrow_forward_rounded,
                               onTap: () {
-                                setState(() {
-                                  _elementsOpacity = 0;
+                                _login(_email, _password).then((value) {
+                                  if (value) {
+                                    setState(() {
+                                      _elementsOpacity = 0;
+                                    });
+                                  }
                                 });
                               },
                               onAnimationEnd: () async {

@@ -65,6 +65,9 @@ class _SelectPaymentState extends State<SelectPayment> {
             ),
             ClassicButton(
               text: "QRcode",
+              width: 100,
+              height: 50,
+              sizeText: 20,
               elementsOpacity: _elementsOpacity,
               icon: Icons.qr_code_scanner_rounded,
               onTap: () {
@@ -87,7 +90,10 @@ class _SelectPaymentState extends State<SelectPayment> {
               height: 100,
             ),
             ClassicButton(
+              width: 100,
+              height: 50,
               text: "NFCreader",
+              sizeText: 20,
               elementsOpacity: _elementsOpacity,
               icon: Icons.nfc_rounded,
               onTap: () {

@@ -2,15 +2,14 @@ import 'package:cash_manager/pages/NFC_Reader.dart';
 import 'package:cash_manager/pages/QR_code.dart';
 import 'package:cash_manager/pages/buy_screen.dart';
 import 'package:cash_manager/pages/ValidationPage.dart';
-import 'package:cash_manager/pages/login_screen.dart';
 import 'package:cash_manager/pages/register_screen.dart';
+import 'package:cash_manager/pages/login_screen.dart';
 import 'package:cash_manager/pages/selectPayment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cash_manager/pages/select_server.dart';
 import 'package:cash_manager/services/manager.dart';
 import 'package:cash_manager/pages/NFC_Reader.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
 void clearSharedPrefs(SharedPreferences prefs) async {
   prefs.setBool('isLogged', false);
@@ -31,15 +30,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     clearSharedPrefs(prefs);
     return Manager(
-        builder: (context, child) => ResponsiveWrapper.builder(child,
-                maxWidth: 1200,
-                minWidth: 480,
-                defaultScale: true,
-                breakpoints: [
-                  const ResponsiveBreakpoint.resize(480, name: MOBILE),
-                  const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-                  const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-                ]),
         child: MaterialApp(
             title: 'Cash manager',
             // Start the app with the "/" named route. In this case, the app starts
@@ -48,18 +38,18 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
-              '/register': (context) => const RegisterScreen(),
-              '/qrcode': (context) => const QRcodePage(),
-              '/profile': (context) => const QRcodePage(),
-              '/login': (context) => const LoginScreen(),
-              '/': (context) => const RegisterScreen(),
-              '/nfcreader': (context) => const NFCReaderPage(),
-              // '/login': (context) => const LoginScreen(),
-              // '/register': (context) => const RegisterScreen(),
-              '/select': (context) => const SelectPayment(),
-              // '/buy': (context) => const BuyScreen(),
-              // '/pay': (context) => const PayScreen(),
-              // '/payment_infos': (context) => const PaymentInfosScreen(),)
-            }));
+          '/register': (context) => const RegisterScreen(),
+          '/qrcode': (context) => const QRcodePage(),
+          '/profile': (context) => const QRcodePage(),
+          '/login': (context) => const LoginScreen(),
+          '/': (context) => const RegisterScreen(),
+          '/nfcreader': (context) => const NFCReaderPage(),
+          // '/login': (context) => const LoginScreen(),
+          // '/register': (context) => const RegisterScreen(),
+          '/select': (context) => const SelectPayment(),
+          // '/buy': (context) => const BuyScreen(),
+          // '/pay': (context) => const PayScreen(),
+          // '/payment_infos': (context) => const PaymentInfosScreen(),
+        }));
   }
 }

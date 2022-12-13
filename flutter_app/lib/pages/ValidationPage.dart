@@ -54,7 +54,10 @@ class _ValidationPageState extends State<ValidationPage> {
               height: 150,
             ),
             ClassicButton(
+              width: 100,
+              height: 50,
               text: 'Go back',
+              sizeText: 20,
               elementsOpacity: _elementsOpacity,
               icon: Icons.arrow_back_sharp,
               onTap: () {

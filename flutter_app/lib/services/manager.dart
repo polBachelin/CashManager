@@ -19,7 +19,6 @@ class Manager extends StatefulWidget {
   const Manager({
     Key? key,
     required this.child,
-    required Widget Function(dynamic context, dynamic child) builder,
   }) : super(key: key);
 
   final Widget child;
