@@ -3,7 +3,6 @@ import 'package:cash_manager/pages/QR_code.dart';
 import 'package:cash_manager/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_manager/components/widgets/classic_button.dart';
-import 'package:cash_manager/theme.dart';
 
 class SelectPayment extends StatefulWidget {
   const SelectPayment({super.key, required this.bill});
@@ -107,10 +106,8 @@ class _SelectPaymentState extends State<SelectPayment> {
                 setState(() {
                   _elementsOpacity = 0;
                 });
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const NFCReaderPage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NFCReaderPage()));
               },
               onAnimationEnd: () async {
                 await Future.delayed(const Duration(milliseconds: 500));
