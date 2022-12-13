@@ -89,12 +89,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30.0),
                 child: MessagesScreen())
             : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 70),
+                      const SizedBox(height: 40),
                       TweenAnimationBuilder<double>(
                         duration: const Duration(milliseconds: 300),
                         tween: Tween(begin: 1, end: _elementsOpacity),
@@ -132,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               actionOnChanged: _getUsername,
                               hintText: "Username",
                             ),
-                            const SizedBox(height: 60),
+                            const SizedBox(height: 40),
                             CustomField(
                               fade: _elementsOpacity == 0,
                               validatorFunc: isValidEmail,
@@ -146,36 +146,73 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               actionOnChanged: _getPassword,
                               hintText: "Password",
                             ),
-                            const SizedBox(height: 60),
+                            const SizedBox(height: 40),
                             CustomField(
                               fade: _elementsOpacity == 0,
                               validatorFunc: null,
                               actionOnChanged: _getConfirmedPassword,
                               hintText: "Confirm Password",
                             ),
-                            const SizedBox(height: 60),
-                            ClassicButton(
-                              text: "Sign up",
-                              elementsOpacity: _elementsOpacity,
-                              icon: Icons.arrow_forward_rounded,
-                              onTap: () {
-                                print("$_confirmedPassword $_email, $_password, $_password");
-                                _register(_username, _email, _password)
-                                    .then((value) {
-                                  if (value) {
-                                    setState(() {
-                                      _elementsOpacity = 0;
+                            const SizedBox(height: 90),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ClassicButton(
+                                  text: "Sign up",
+                                  width: 120,
+                                  height: 50,
+                                  sizeText: 20,
+                                  elementsOpacity: _elementsOpacity,
+                                  icon: Icons.arrow_forward_rounded,
+                                  onTap: () {
+                                    print(
+                                        "$_confirmedPassword $_email, $_password, $_password");
+                                    _register(_username, _email, _password)
+                                        .then((value) {
+                                      if (value) {
+                                        setState(() {
+                                          _elementsOpacity = 0;
+                                        });
+                                      }
                                     });
-                                  }
-                                });
-                              },
-                              onAnimationEnd: () async {
-                                await Future.delayed(
-                                    const Duration(milliseconds: 500));
-                                setState(() {
-                                  loadingBallAppear = true;
-                                });
-                              },
+                                  },
+                                  onAnimationEnd: () async {
+                                    await Future.delayed(
+                                        const Duration(milliseconds: 500));
+                                    setState(() {
+                                      loadingBallAppear = true;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(width: 50),
+                                ClassicButton(
+                                  text: "Sign in",
+                                  width: 90,
+                                  height: 40,
+                                  sizeText: 15,
+                                  elementsOpacity: _elementsOpacity,
+                                  icon: Icons.arrow_forward_rounded,
+                                  onTap: () {
+                                    print(
+                                        "$_confirmedPassword $_email, $_password, $_password");
+                                    _register(_username, _email, _password)
+                                        .then((value) {
+                                      if (value) {
+                                        setState(() {
+                                          _elementsOpacity = 0;
+                                        });
+                                      }
+                                    });
+                                  },
+                                  onAnimationEnd: () async {
+                                    await Future.delayed(
+                                        const Duration(milliseconds: 500));
+                                    setState(() {
+                                      loadingBallAppear = true;
+                                    });
+                                  },
+                                )
+                              ],
                             )
                           ],
                         ),

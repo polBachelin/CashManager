@@ -54,6 +54,9 @@ class _ValidationPageState extends State<ValidationPage> {
               height: 150,
             ),
             ClassicButton(
+              width: 120,
+              height: 50,
+              sizeText: 20,
               text: 'Go back',
               elementsOpacity: _elementsOpacity,
               icon: Icons.arrow_back_sharp,
@@ -61,10 +64,6 @@ class _ValidationPageState extends State<ValidationPage> {
                 setState(() {
                   _elementsOpacity = 0;
                 });
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SelectPayment()));
               },
               // onAnimationEnd: () async {
               //   await Future.delayed(const Duration(milliseconds: 500));
