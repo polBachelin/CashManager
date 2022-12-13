@@ -5,6 +5,7 @@ import 'package:cash_manager/pages/register_screen.dart';
 import 'package:cash_manager/pages/login_screen.dart';
 import 'package:cash_manager/pages/selectPayment_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:cash_manager/components/buy_page/cartStorage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cash_manager/pages/select_server.dart';
 import 'package:cash_manager/services/manager.dart';
@@ -41,8 +42,7 @@ class MyApp extends StatelessWidget {
               '/login': (context) => const LoginScreen(),
               '/': (context) => const ServerPage(),
               '/nfcreader': (context) => const NFCReaderPage(),
-              '/select': (context) => const SelectPayment(),
-              '/buy': (context) => const BuyScreen(),
+              '/buy': (context) => BuyScreen(storage: CartStorage()),
               // '/pay': (context) => const PayScreen(),
               // '/payment_infos': (context) => const PaymentInfosScreen(),
         }));

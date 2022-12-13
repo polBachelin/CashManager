@@ -5,10 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ArticleCard extends StatefulWidget {
   final Article article;
+  final Function ?incrementFunc;
+  final Function ?decrementFunc;
 
   const ArticleCard({
     Key? key,
     required this.article,
+    this.incrementFunc,
+    this.decrementFunc,
   }) : super(key: key);
 
   @override
@@ -18,18 +22,6 @@ class ArticleCard extends StatefulWidget {
 class ArticleCardState extends State<ArticleCard> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   int _nb = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _nb++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _nb--;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +39,7 @@ class ArticleCardState extends State<ArticleCard> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 FloatingActionButton(
-                  onPressed: _decrementCounter,
+                  onPressed: () => _nb = widget.decrementFunc!(),
                   tooltip: 'Remove',
                   child: const Icon(Icons.minimize),
                 ),
@@ -55,7 +47,7 @@ class ArticleCardState extends State<ArticleCard> {
                 Text("$_nb"),
                 const SizedBox(width: 8),
                 FloatingActionButton(
-                  onPressed: _incrementCounter,
+                  onPressed: () => _nb = widget.incrementFunc!(),
                   tooltip: 'Add to buy list',
                   child: const Icon(Icons.add),
                 ),

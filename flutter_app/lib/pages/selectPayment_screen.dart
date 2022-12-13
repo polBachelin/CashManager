@@ -6,7 +6,9 @@ import 'package:cash_manager/components/widgets/classic_button.dart';
 import 'package:cash_manager/theme.dart';
 
 class SelectPayment extends StatefulWidget {
-  const SelectPayment({super.key});
+  const SelectPayment({super.key, required this.bill});
+
+  final double bill;
 
   @override
   State<SelectPayment> createState() => _SelectPaymentState();
@@ -61,7 +63,12 @@ class _SelectPaymentState extends State<SelectPayment> {
               ],
             ),
             const SizedBox(
-              height: 150,
+              height: 50,
+            ),
+            Text("${widget.bill}€",
+                style: const TextStyle(color: ColorText, fontSize: 30)),
+            const SizedBox(
+              height: 50,
             ),
             ClassicButton(
               text: "QRcode",

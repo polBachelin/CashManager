@@ -1,5 +1,5 @@
-  
 import 'dart:convert';
+import 'package:crypto/crypto.dart' as crypto;
 
 List<Article> articlesListFromJson(String str) =>
   List<Article>.from(json.decode(str)["articles"].map((x) => Article.fromJson(x)));
@@ -26,4 +26,12 @@ class Article {
         'price': price,
         'image': image,
       };
+
+  @override
+  int get hashCode => name.hashCode;
+
+  @override
+  bool operator ==(Object other) => other is Article && other.name == name;
+  
+  
 }
