@@ -64,40 +64,49 @@ class BuyScreenState extends State<BuyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
-        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-            Widget>[
-          Expanded(
-              child: FutureBuilder<List>(
-                  future: Manager.of(context).api.getArticles(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                      if (_cart.isEmpty) {
-                        _cart = List.filled(snapshot.data!.length, 0);
-                      }
-                      return ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          //shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, i) {
-                            return ArticleCard(
-                                article: snapshot.data![i],
-                                incrementFunc: () =>
-                                    _incrementCart(i, snapshot.data![i]),
-                                decrementFunc: () =>
-                                    _decrementCart(i, snapshot.data![i]));
-                          });
-                    } else {
-                      return const Center(
-                          child: Text("No Articles availables",
-                              style: TextStyle(
-                                  color: theme.blueColor,
-                                  fontFamily: "Comic Sans MS",
-                                  fontSize: 30)));
-                    }
-                  })),
-                  ClassicButton(text: "Pay now $_bill €",
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SelectPayment(bill: _bill))),
-                    elementsOpacity: 1)
-        ]));
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                  child: FutureBuilder<List>(
+                      future: Manager.of(context).api.getArticles(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                          if (_cart.isEmpty) {
+                            _cart = List.filled(snapshot.data!.length, 0);
+                          }
+                          return ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              //shrinkWrap: true,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, i) {
+                                return ArticleCard(
+                                    article: snapshot.data![i],
+                                    incrementFunc: () =>
+                                        _incrementCart(i, snapshot.data![i]),
+                                    decrementFunc: () =>
+                                        _decrementCart(i, snapshot.data![i]));
+                              });
+                        } else {
+                          return const Center(
+                              child: Text("No Articles availables",
+                                  style: TextStyle(
+                                      color: theme.blueColor,
+                                      fontFamily: "Comic Sans MS",
+                                      fontSize: 30)));
+                        }
+                      })),
+              ClassicButton(
+                text: "Pay now $_bill €",
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SelectPayment(bill: _bill))),
+                elementsOpacity: 1,
+                width: 200,
+                height: 200,
+                sizeText: 10,
+              )
+            ]));
   }
 }

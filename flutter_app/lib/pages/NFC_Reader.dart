@@ -55,6 +55,9 @@ class _NFCReaderPageState extends State<StatefulWidget> {
               onTap: () =>
                   startSessions(context: context, handleTag: handleTag),
               elementsOpacity: 1,
+              width: 200,
+              height: 200,
+              sizeText: 10,
             )
           ]),
         ));
