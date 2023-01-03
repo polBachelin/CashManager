@@ -70,7 +70,7 @@ class _CustomFieldState extends State<CustomField>
                   controller: controller,
                   focusNode: node,
                   decoration: InputDecoration(hintText: widget.hintText),
-                  keyboardType: TextInputType.text,
+                  keyboardType: widget.keyboardType,
                   onChanged: (value) async {
                     if (value.isNotEmpty) {
                       widget.actionOnChanged(controller.text);

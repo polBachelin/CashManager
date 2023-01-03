@@ -153,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               actionOnChanged: _getConfirmedPassword,
                               hintText: "Confirm Password",
                             ),
-                            const SizedBox(height: 90),
+                            const SizedBox(height: 40),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -163,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   height: 50,
                                   sizeText: 20,
                                   elementsOpacity: _elementsOpacity,
-                                  icon: Icons.arrow_forward_rounded,
+                                  icon: Icons.app_registration,
                                   onTap: () {
                                     print(
                                         "$_confirmedPassword $_email, $_password, $_password");
@@ -191,18 +191,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   height: 40,
                                   sizeText: 15,
                                   elementsOpacity: _elementsOpacity,
-                                  icon: Icons.arrow_forward_rounded,
+                                  icon: Icons.login,
                                   onTap: () {
-                                    print(
-                                        "$_confirmedPassword $_email, $_password, $_password");
-                                    _register(_username, _email, _password)
-                                        .then((value) {
-                                      if (value) {
-                                        setState(() {
-                                          _elementsOpacity = 0;
-                                        });
-                                      }
-                                    });
+                                    Navigator.pushReplacementNamed(
+                                        context, "/login");
                                   },
                                   onAnimationEnd: () async {
                                     await Future.delayed(

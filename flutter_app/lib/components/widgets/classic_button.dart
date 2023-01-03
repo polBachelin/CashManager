@@ -58,11 +58,10 @@ class _ClassicButtonState extends State<ClassicButton> {
                       color: ColorTextButton,
                       fontSize: widget.sizeText),
                 ),
-                const SizedBox(width: 30),
                 Icon(
                   widget.icon,
                   color: ColorLogo,
-                  size: 10,
+                  size: 20,
                 ),
               ],
             ),

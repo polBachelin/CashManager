@@ -38,7 +38,8 @@ class Server {
 
   Future<bool> checkPayment(paymentInfos) async {
     try {
-      final response = await ServerRequest.postRequest(url, "/user/payment", {"code" : paymentInfos},headers);
+      final response = await ServerRequest.postRequest(
+          url, "/user/payment", {"code": paymentInfos}, headers);
       return response.statusCode == 200 ? true : false;
     } catch (e) {
       return false;
@@ -46,6 +47,11 @@ class Server {
   }
 
   Future<bool> logout() async {
+    prefs.then((SharedPreferences p) {
+      p.setString("access_token", "");
+      updateUrl("");
+      return true;
+    });
     return true;
   }
 
@@ -101,8 +107,8 @@ class Server {
 
   Future<List<Article>> getArticles() async {
     try {
-      final response = await ServerRequest.getRequest(
-          url, "/articles", headers);
+      final response =
+          await ServerRequest.getRequest(url, "/articles", headers);
       if (response.statusCode == 200) {
         return articlesListFromJson(response.body);
       } else {

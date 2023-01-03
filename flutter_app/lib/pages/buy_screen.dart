@@ -74,25 +74,32 @@ class BuyScreenState extends State<BuyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: theme.ColorTitleText,
         body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              ClassicButton(
+              const SizedBox(height : 30),
+              Row(
+                children: [
+                  ClassicButton(
                   text: "Logout",
                   onTap: () {
                     Manager.of(context).api.logout().then((value) {
                       if (value) {
-                        Navigator.pushReplacementNamed(context, "/logout");
+                        Navigator.pushReplacementNamed(context, "/");
                       } else {
                         toast(context, "Le serveur est injoignable");
                       }
                     });
                   },
+                  icon: Icons.logout,
                   elementsOpacity: 1,
-                  width: 200,
-                  height: 200,
-                  sizeText: 10,),
+                  width: 100,
+                  height: 50,
+                  sizeText: 15,)
+                ],
+              )
+              ,
               Expanded(
                   child: FutureBuilder<List>(
                       future: Manager.of(context).api.getArticles(),
@@ -131,9 +138,9 @@ class BuyScreenState extends State<BuyScreen> {
                               builder: (context) =>
                                   SelectPayment(bill: _bill))),
                       elementsOpacity: 1,
-                      width: 200,
-                      height: 200,
-                      sizeText: 10,)
+                      width: 300,
+                      height: 50,
+                      sizeText: 20,)
                   : const SizedBox()
             ]));
   }

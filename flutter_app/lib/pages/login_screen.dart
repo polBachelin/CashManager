@@ -111,12 +111,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(height: 60),
                             ClassicButton(
-                              width: 100,
+                              width: 200,
                               height: 50,
                               sizeText: 20,
                               text: "Login",
                               elementsOpacity: _elementsOpacity,
-                              icon: Icons.arrow_forward_rounded,
+                              icon: Icons.login,
                               onTap: () {
                                 _login(_email, _password).then((value) {
                                   if (value) {
@@ -125,6 +125,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                     });
                                   }
                                 });
+                              },
+                              onAnimationEnd: () async {
+                                await Future.delayed(
+                                    const Duration(milliseconds: 500));
+                                setState(() {
+                                  loadingBallAppear = true;
+                                });
+                              },
+                            ),
+                            const Text("or"),
+                            ClassicButton(
+                              width: 100,
+                              height: 50,
+                              sizeText: 20,
+                              text: "Register",
+                              elementsOpacity: _elementsOpacity,
+                              icon: Icons.app_registration,
+                              onTap: () {
+                                Navigator.pushReplacementNamed(
+                                    context, "/register");
                               },
                               onAnimationEnd: () async {
                                 await Future.delayed(
