@@ -89,7 +89,10 @@ class BuyScreenState extends State<BuyScreen> {
                       }
                     });
                   },
-                  elementsOpacity: 1),
+                  elementsOpacity: 1,
+                  width: 200,
+                  height: 200,
+                  sizeText: 10,),
               Expanded(
                   child: FutureBuilder<List>(
                       future: Manager.of(context).api.getArticles(),
@@ -127,7 +130,10 @@ class BuyScreenState extends State<BuyScreen> {
                           MaterialPageRoute(
                               builder: (context) =>
                                   SelectPayment(bill: _bill))),
-                      elementsOpacity: 1)
+                      elementsOpacity: 1,
+                      width: 200,
+                      height: 200,
+                      sizeText: 10,)
                   : const SizedBox()
             ]));
   }

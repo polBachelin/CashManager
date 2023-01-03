@@ -34,14 +34,14 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             checkerboardOffscreenLayers: false,
             routes: {
-              '/register': (context) => const RegisterScreen(),
-              '/qrcode': (context) => const QRcodePage(),
-              '/login': (context) => const LoginScreen(),
-              '/': (context) => const ServerPage(),
-              '/nfcreader': (context) => const NFCReaderPage(),
-              '/buy': (context) => BuyScreen(storage: CartStorage()),
-              // '/pay': (context) => const PayScreen(),
-              // '/payment_infos': (context) => const PaymentInfosScreen(),
+          '/register': (context) => const RegisterScreen(),
+          '/qrcode': (context) => const QRcodePage(),
+          '/login': (context) => const LoginScreen(),
+          '/': (context) => const ServerPage(),
+          '/nfcreader': (context) => const NFCReaderPage(),
+          '/buy': (context) => BuyScreen(storage: CartStorage()),
+          // '/pay': (context) => const PayScreen(),
+          // '/payment_infos': (context) => const PaymentInfosScreen(),
         }));
   }
 }

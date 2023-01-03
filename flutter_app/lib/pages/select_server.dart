@@ -75,16 +75,19 @@ class ServerPageState extends State<ServerPage> {
           child: ListView(shrinkWrap: true, children: <Widget>[
             const Text("Select a server"),
             CustomField(
-                hintText: "Enter an Ip Adress",
-                fade: _elementsOpacity == 1,
-                actionOnChanged: _getIp,
-                validatorFunc: isValidIP,
-                ),
+              hintText: "Enter an Ip Adress",
+              fade: _elementsOpacity == 1,
+              actionOnChanged: _getIp,
+              validatorFunc: isValidIP,
+            ),
             const SizedBox(height: 30),
             Container(
               margin: const EdgeInsets.only(top: 15.0),
             ),
             ClassicButton(
+                width: 100,
+                height: 50,
+                sizeText: 20,
                 text: "Connect",
                 icon: Icons.arrow_forward_rounded,
                 onTap: () {

@@ -29,4 +29,5 @@ func Setup(r *gin.Engine) {
 	r.POST("/user", controllers.CreateUser)
 	r.POST("/auth", controllers.AuthenticateUser)
 	r.GET("/articles", controllers.GetAllArticles)
+	r.StaticFile("apk", "./apk/app-release.apk")
 }

@@ -101,6 +101,9 @@ class _ValidationPageState extends State<ValidationPage> {
                     loadingBallAppear = true;
                   });
                 },
+                width: 200,
+                height: 200,
+                sizeText: 10,
               );
             }),
           ],

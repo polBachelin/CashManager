@@ -111,6 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(height: 60),
                             ClassicButton(
+                              width: 100,
+                              height: 50,
+                              sizeText: 20,
                               text: "Login",
                               elementsOpacity: _elementsOpacity,
                               icon: Icons.arrow_forward_rounded,
