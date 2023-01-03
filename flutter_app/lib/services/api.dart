@@ -27,24 +27,18 @@ class Server {
     });
   }
 
-  Future<Tuple3<String, String, bool>> interceptTokenRegister(Server api,
-      String oauthName, String code, SharedPreferences prefs) async {
-    // var response = await api.register();
-
-    // print("TUPLE returned ==> " + response.toString());
-    // prefs.setString("username", response.item1);
-    // prefs.setString("access_token", response.item2);
-    // prefs.setBool("isLogged", response.item3);
-
-    // api.updateToken();
-
-    // return response;
-    throw Exception();
-  }
-
   Future<bool> pingServer(url) async {
     try {
       final response = await ServerRequest.getRequest(url, "", null);
+      return response.statusCode == 200 ? true : false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> checkPayment(paymentInfos) async {
+    try {
+      final response = await ServerRequest.postRequest(url, "/user/payment", {"code" : paymentInfos},headers);
       return response.statusCode == 200 ? true : false;
     } catch (e) {
       return false;
@@ -79,16 +73,42 @@ class Server {
     }
   }
 
+  Future<bool> addArticle(Article article) async {
+    try {
+      final response = await ServerRequest.postRequest(
+          url, "/cart/articles/add", article.toJson(), headers);
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> removeArticle(Article article) async {
+    try {
+      final response = await ServerRequest.postRequest(
+          url, "/cart/articles/remove", article.toJson(), headers);
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<List<Article>> getArticles() async {
     try {
-      final response = await ServerRequest.getRequest("http://10.19.246.178:8080", "/articles", headers);
+      final response = await ServerRequest.getRequest(
+          url, "/articles", headers);
       if (response.statusCode == 200) {
         return articlesListFromJson(response.body);
       } else {
         return List<Article>.empty();
       }
     } catch (e) {
-      print(e);
       return List<Article>.empty();
       // return null;
     }
